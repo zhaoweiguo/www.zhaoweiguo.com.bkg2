@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>赵卫国的个人网站</title>
+  <meta name="description" content="赵卫国的个人网站">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+  <link rel="stylesheet" href="/assets/css/main.min.css">
+  <link rel="stylesheet" href="/assets/css/vendors.min.css">
+
+  <script src="/assets/js/vendors.min.js"></script>
+  <script src="/assets/js/app.min.js"></script>
+</head>
+
+<body>
+  <div id="preloader">
+    <div class="load">
+      <hr />
+      <hr />
+      <hr />
+      <hr />
+    </div>
+  </div>
+  <div id="landing">
+  <div class="landing-title">
+    <h1>大家好，我是
+      <span class="highlight-title">赵卫国</span>,
+    </h1>
+    <h1>
+      <span id="txt-rotate" data-period="2000"
+        data-rotate='["随时联系我", "鼠标下划获取我的更多信息"]'
+      >
+      </span>
+    </h1>
+    <div class="landing-icons">
+      
+        <a class="social-link email" aria-label="My E-Mail" href="mailto:admin@zhaoweiguo.com">
+          <svg viewBox="0 0 200 200" class="circle">
+            <circle cx="100" cy="100" r="80" />
+          </svg>
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/solid.svg#envelope""></use>
+            </svg>
+          </div>
+          <span class="label">E-Mail</span>
+        </a>
+      
+
+      
+        <a class="social-link" aria-label="My GitHub" target="_blank" rel="noreferrer"
+          href="https://github.com/zhaoweiguo"
+        >
+          <svg viewBox="0 0 200 200" class="circle">
+            <circle cx="100" cy="100" r="80" />
+          </svg>
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#github"></use>
+            </svg>
+          </div>
+          <span class="label">GitHub</span>
+        </a>
+      
+
+      
+        <a class="social-link" aria-label="My zhihu" target="_blank" rel="noreferrer"
+          href="https://www.zhihu.com/people/zhaoweiguo.com"
+        >
+          <svg viewBox="0 0 200 200" class="circle">
+            <circle cx="100" cy="100" r="80" />
+          </svg>
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#zhihu"></use>
+            </svg>
+          </div>
+          <span class="label">知乎</span>
+        </a>
+      
+
+      
+        <a class="social-link" aria-label="My Bilibili" target="_blank" rel="noreferrer"
+          href="https://space.bilibili.com/515915051"
+        >
+          <svg viewBox="0 0 200 200" class="circle">
+            <circle cx="100" cy="100" r="80" />
+          </svg>
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#bili"></use>
+            </svg>
+          </div>
+          <span class="label">Bilibili</span>
+        </a>
+      
+
+      
+        <a class="social-link linkedin" aria-label="My LinkedIn" target="_blank"
+          rel="noreferrer" href="https://www.linkedin.com/in/zhaoweiguo"
+        >
+          <svg viewBox="0 0 200 200" class="circle">
+            <circle cx="100" cy="100" r="80" />
+          </svg>
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#linkedin-in"></use>
+            </svg>
+          </div>
+          <span class="label">LinkedIn</span>
+        </a>
+      
+
+      
+        <a class="social-link QQ" aria-label="My QQ" target="_blank"
+          rel="noreferrer" onclick="javascript: alert('这个还没弄好')" 
+        >
+          <svg viewBox="0 0 200 200" class="circle">
+            <circle cx="100" cy="100" r="80" />
+          </svg>
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#qq"></use>
+            </svg>
+          </div>
+          <span class="label">QQ</span>
+        </a>
+      
+    </div>
+  </div>
+</div>
+
+  <div class="layout">
+    
+      <section class="card neumorphism-card-big">
+        <h1 class="title">个人介绍</h1>
+<p class="description" data-aos="fade-down">懂产品，懂技术。管过人，创过业。 学习过程中遇到的知识随手整理到<a class="highlight-link" href="https://knowledge.zhaoweiguo.com" target="_blank" rel="noreferrer">个人知识体系</a> 中，周期性整理所感所悟放到 <a class="highlight-link" href="https://blog.zhaoweiguo.com" target="_blank" rel="noreferrer">博客</a>中。最近在研究Kubernetes源码，相关知识要放到一个专门的地方。</p>
+
+      </section>
+    
+    
+      <section class="card neumorphism-card-big">
+        <h1 class="title">Skills</h1>
+
+<div id="skills">
+  <input type="radio" id="all" name="filter" checked />
+  <label class="filter-button neumorphism-button" for="all">All</label>
+  <input type="radio" id="language" name="filter" />
+  <label class="filter-button neumorphism-button" for="language">Languages</label>
+  <input type="radio" id="db" name="filter" />
+  <label class="filter-button neumorphism-button" for="db">DBs</label>
+  <input type="radio" id="tool" name="filter" />
+  <label class="filter-button neumorphism-button" for="tool">Tools</label>
+
+  
+    <div skill-type="language" skill-weight="5" data-aos="zoom-in">
+      Erlang
+    </div>
+  
+    <div skill-type="language" skill-weight="4" data-aos="zoom-in">
+      Golang
+    </div>
+  
+    <div skill-type="language" skill-weight="2" data-aos="zoom-in">
+      Python
+    </div>
+  
+    <div skill-type="language" skill-weight="4" data-aos="zoom-in">
+      PHP
+    </div>
+  
+    <div skill-type="language" skill-weight="3" data-aos="zoom-in">
+      HTML
+    </div>
+  
+    <div skill-type="language" skill-weight="3" data-aos="zoom-in">
+      Javascript
+    </div>
+  
+    <div skill-type="language" skill-weight="1" data-aos="zoom-in">
+      Java
+    </div>
+  
+    <div skill-type="language" skill-weight="1" data-aos="zoom-in">
+      C
+    </div>
+  
+    <div skill-type="language" skill-weight="1" data-aos="zoom-in">
+      Swift
+    </div>
+  
+    <div skill-type="language" skill-weight="1" data-aos="zoom-in">
+      Android
+    </div>
+  
+    <div skill-type="language" skill-weight="1" data-aos="zoom-in">
+      C++
+    </div>
+  
+    <div skill-type="language" skill-weight="1" data-aos="zoom-in">
+      Ruby
+    </div>
+  
+  
+    <div skill-type="db" skill-weight="5" data-aos="zoom-in">
+      MySQL
+    </div>
+  
+    <div skill-type="db" skill-weight="3" data-aos="zoom-in">
+      MongoDB
+    </div>
+  
+    <div skill-type="db" skill-weight="3" data-aos="zoom-in">
+      InfluxDB
+    </div>
+  
+    <div skill-type="db" skill-weight="1" data-aos="zoom-in">
+      Cayley
+    </div>
+  
+    <div skill-type="db" skill-weight="2" data-aos="zoom-in">
+      Sqlite
+    </div>
+  
+    <div skill-type="db" skill-weight="3" data-aos="zoom-in">
+      Redis
+    </div>
+  
+    <div skill-type="db" skill-weight="1" data-aos="zoom-in">
+      Etcd
+    </div>
+  
+    <div skill-type="db" skill-weight="2" data-aos="zoom-in">
+      Kafka
+    </div>
+  
+    <div skill-type="db" skill-weight="4" data-aos="zoom-in">
+      Mnesia
+    </div>
+  
+  
+    <div skill-type="tool" skill-weight="5" data-aos="zoom-in">
+      Git
+    </div>
+  
+    <div skill-type="tool" skill-weight="3" data-aos="zoom-in">
+      Bash
+    </div>
+  
+    <div skill-type="tool" skill-weight="3" data-aos="zoom-in">
+      Docker
+    </div>
+  
+    <div skill-type="tool" skill-weight="3" data-aos="zoom-in">
+      Drone CI
+    </div>
+  
+    <div skill-type="tool" skill-weight="1" data-aos="zoom-in">
+      Jenkins
+    </div>
+  
+    <div skill-type="tool" skill-weight="2" data-aos="zoom-in">
+      Chrome DevTools
+    </div>
+  
+    <div skill-type="tool" skill-weight="3" data-aos="zoom-in">
+      Kubernetes
+    </div>
+  
+    <div skill-type="tool" skill-weight="2" data-aos="zoom-in">
+      Prometheus
+    </div>
+  
+    <div skill-type="tool" skill-weight="3" data-aos="zoom-in">
+      Tsung
+    </div>
+  
+    <div skill-type="tool" skill-weight="2" data-aos="zoom-in">
+      Wireshark
+    </div>
+
+
+
+</div>
+
+      </section>
+    
+    
+      <section class="card neumorphism-card-big">
+        <h1 class="title">Education & Experience</h1>
+<p class="subtitle">
+  更多信息参见
+  <a class="highlight-link" href="https://www.zhaoweiguo.com/" target="_blank" rel="noreferrer">
+    我的简历
+  </a>.
+</p>
+
+<div class="timeline-wrapper">
+  <ul class="timeline">
+        <li>
+          <div class="direction-r">
+            <div class="flag-wrapper">
+              <span class="hexagon"></span>
+              <span class="flag neumorphism-button" data-aos="zoom-in-left">
+                <a href="https://www.lenovo.com/" target="_blank" rel="noreferrer">
+                  <span>Lenovo</span>
+                </a>
+              </span>
+              <span class="time-wrapper" data-aos="zoom-in-left">
+                <span class="time neumorphism-card">Jul 2019 - Present</span>
+              </span>
+            </div>
+            <div class="desc neumorphism-card" data-aos="zoom-in-left">
+              高级软件开发工程师
+              
+                <div class="tag-wrapper">
+                  
+                    <span class="tag neumorphism-card">Erlang</span>
+                  
+                    <span class="tag neumorphism-card">Golang</span>
+                  
+                    <span class="tag neumorphism-card">Kubernetes</span>
+                  
+                    <span class="tag neumorphism-card">Docker</span>
+                  
+                </div>
+              
+            </div>
+          </div>
+        </li>
+      
+    
+      
+
+      
+        <li>
+          <div class="direction-r">
+            <div class="flag-wrapper">
+              <span class="hexagon"></span>
+              <span class="flag neumorphism-button" data-aos="zoom-in-left">
+                <a href="https://example.com/" target="_blank" rel="noreferrer">
+                  <span>创业</span>
+                </a>
+              </span>
+              <span class="time-wrapper" data-aos="zoom-in-left">
+                <span class="time neumorphism-card">Dec 2014 - Jun 2018</span>
+              </span>
+            </div>
+            <div class="desc neumorphism-card" data-aos="zoom-in-left">
+              技术合伙人
+              
+                <div class="tag-wrapper">
+                  
+                    <span class="tag neumorphism-card">敏捷开发</span>
+
+                    <span class="tag neumorphism-card">自动化测试</span>
+                  
+                    <span class="tag neumorphism-card">全栈</span>
+                  
+                    <span class="tag neumorphism-card">技术管理</span>
+                  
+                </div>
+              
+            </div>
+          </div>
+        </li>
+      
+    
+      
+        <li>
+          <div class="direction-l">
+            <div class="flag-wrapper">
+              <span class="hexagon"></span>
+              <span class="flag neumorphism-button" data-aos="zoom-in-right">
+                <a href="https://buaa.edu.cn" target="_blank" rel="noreferrer">
+                  <span>北京航空航天大学</span>
+                </a>
+              </span>
+              <span class="time-wrapper" data-aos="zoom-in-right">
+                <span class="time neumorphism-card">2014 - 2019</span>
+              </span>
+            </div>
+            <div class="desc neumorphism-card" data-aos="zoom-in-right">
+              计算机专业硕士
+                <div class="tag-wrapper">
+                    <span class="tag neumorphism-card">论文《基于区块链的食品安全追溯系统设计与实现》</span>
+                </div>
+              
+            </div>
+          </div>
+        </li>
+      
+
+      
+    
+      
+
+      
+        <li>
+          <div class="direction-r">
+            <div class="flag-wrapper">
+              <span class="hexagon"></span>
+              <span class="flag neumorphism-button" data-aos="zoom-in-left">
+                <a href="https://ganji.com/" target="_blank" rel="noreferrer">
+                  <span>赶集网</span>
+                </a>
+              </span>
+              <span class="time-wrapper" data-aos="zoom-in-left">
+                <span class="time neumorphism-card">Mar 2014 - Nov 2014</span>
+              </span>
+            </div>
+            <div class="desc neumorphism-card" data-aos="zoom-in-left">
+              开发工程师
+              
+                <div class="tag-wrapper">
+                  
+                    <span class="tag neumorphism-card">Golang</span>
+                  
+                    <span class="tag neumorphism-card">PHP</span>
+                  
+                    <span class="tag neumorphism-card">Lua</span>
+                  
+                </div>
+              
+            </div>
+          </div>
+        </li>
+      
+    
+
+        <li>
+          <div class="direction-r">
+            <div class="flag-wrapper">
+              <span class="hexagon"></span>
+              <span class="flag neumorphism-button" data-aos="zoom-in-left">
+                <a href="https://heimi360.com/" target="_blank" rel="noreferrer">
+                  <span>黑米科技</span>
+                </a>
+              </span>
+              <span class="time-wrapper" data-aos="zoom-in-left">
+                <span class="time neumorphism-card">Aug 2010 - Nov 2014</span>
+              </span>
+            </div>
+            <div class="desc neumorphism-card" data-aos="zoom-in-left">
+              开发工程师
+              
+                <div class="tag-wrapper">
+                  
+                    <span class="tag neumorphism-card">Erlang</span>
+                  
+                    <span class="tag neumorphism-card">Redis</span>
+                  
+                    <span class="tag neumorphism-card">MySQL</span>
+                  
+                </div>
+              
+            </div>
+          </div>
+        </li>
+
+
+
+      
+        <li>
+          <div class="direction-l">
+            <div class="flag-wrapper">
+              <span class="hexagon"></span>
+              <span class="flag neumorphism-button" data-aos="zoom-in-right">
+                <a href="https://example.com/" target="_blank" rel="noreferrer">
+                  <span>山东轻工业学院</span>
+                </a>
+              </span>
+              <span class="time-wrapper" data-aos="zoom-in-right">
+                <span class="time neumorphism-card">2005 - 2009</span>
+              </span>
+            </div>
+            <div class="desc neumorphism-card" data-aos="zoom-in-right">
+              计算机专业学士
+                <div class="tag-wrapper">
+                  
+                    <span class="tag neumorphism-card">论文《Erlang+AS实现五子棋对战》</span>
+                </div>
+              
+            </div>
+          </div>
+        </li>
+      
+
+      
+    
+  </ul>
+</div>
+
+      </section>
+    
+    
+      <section class="card neumorphism-card-big">
+        
+  <h1 class="title"><span>Projects</span></h1>
+  <div class="projects-wrapper">
+    
+      <div class="project neumorphism-card" data-aos="zoom-in-down">
+        <div class="name-link-wrapper">
+          <h3>物联网平台</h3>
+        </div>
+        <p class="project-desc">为「智慧联想app」提供后台支持。与其他智能家居云平台打通，使用户使用一个app就可以控制多家的智能硬件设备。</p>
+        
+          <a class="highlight-link" href="https://www.zhaoweiguo.com/" target="_blank" rel="noreferrer">
+            Demo
+          </a>
+        
+        
+          <div class="tag-wrapper">
+            
+              <span class="tag neumorphism-card">Erlang</span>
+            
+              <span class="tag neumorphism-card">Golang</span>
+            
+              <span class="tag neumorphism-card">Kubernetes</span>
+            
+              <span class="tag neumorphism-card">Docker</span>
+            
+          </div>
+        
+      </div>
+    
+      <div class="project neumorphism-card" data-aos="zoom-in-down">
+        <div class="name-link-wrapper">
+          <h3>几个创业项目</h3>
+        </div>
+        <p class="project-desc">多个产品用户超百万，最高日活20万+，不断优化性能，提升用户体验。经历解决DDos攻击，CC攻击等各种攻击。</p>
+        
+          <a class="highlight-link" href="https://www.zhaoweiguo.com/" target="_blank" rel="noreferrer">
+            Demo
+          </a>
+        
+        
+          <div class="tag-wrapper">
+            
+              <span class="tag neumorphism-card">Erlang</span>
+              <span class="tag neumorphism-card">Nginx</span>
+            
+              <span class="tag neumorphism-card">PHP</span>
+              <span class="tag neumorphism-card">MySQL</span>
+              <span class="tag neumorphism-card">Redis</span>
+            
+          </div>
+        
+      </div>
+    
+      <div class="project neumorphism-card" data-aos="zoom-in-down">
+        <div class="name-link-wrapper">
+          <h3>Wifi免费通</h3>
+        </div>
+        <p class="project-desc">本产品是一个移动app，提供wifi云服务，鼓励用户共享自己的wifi数据，其他用户使用这些共享的wifi上网。日均活跃用户10W，总注册用户300W，日增3W。日均PV量1500w，高峰时3000pv/s</p>
+        
+          <div class="tag-wrapper">
+            
+              <span class="tag neumorphism-card">Erlang</span>            
+              <span class="tag neumorphism-card">MySQL</span>
+              <span class="tag neumorphism-card">Redis</span>
+            
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+
+  <h1 class="title">Open Source Projects</h1>
+  
+
+  
+
+  <div class="projects-wrapper">
+    
+      
+        <div class="project neumorphism-card" data-aos="zoom-in-down">
+          <div class="name-link-wrapper">
+            <h3>Kubernetes源码分析</h3>
+            <div class="links">
+              
+                <a href="https://github.com/gosources/kubernetes" class="project-stars-forks">
+                  <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z">
+                    </path>
+                  </svg>2
+                </a>
+                
+                
+                <a href="https://github.com/gosources/kubernetes/network/members" class="project-stars-forks">
+                  <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                      d="M10 5c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v.3c-.02.52-.23.98-.63 1.38-.4.4-.86.61-1.38.63-.83.02-1.48.16-2 .45V4.72a1.993 1.993 0 0 0-1-3.72C.88 1 0 1.89 0 3a2 2 0 0 0 1 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2 1.11 0 2-.89 2-2 0-.53-.2-1-.53-1.36.09-.06.48-.41.59-.47.25-.11.56-.17.94-.17 1.05-.05 1.95-.45 2.75-1.25S8.95 7.77 9 6.73h-.02C9.59 6.37 10 5.73 10 5zM2 1.8c.66 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2C1.35 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2zm0 12.41c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm6-8c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z">
+                    </path>
+                  </svg>3
+                </a>
+              
+            </div>
+          </div>
+          <p class="project-desc">对Kubernets源码中的各个组件进行深入的研究与学习</p>
+          
+            <a class="highlight-link" href="https://www.zhaoweiguo.com/kubernetes" target="_blank" rel="noreferrer">
+              源码分析
+            </a>
+          
+          <a class="highlight-link" href="https://github.com/gosources/kubernetes" target="_blank" rel="noreferrer">
+            Github
+          </a>
+          
+            <div class="tag-wrapper">
+              
+                <span class="tag neumorphism-card">Golang</span>
+              
+                <span class="tag neumorphism-card">Kubernetes</span>
+              
+                <span class="tag neumorphism-card">go-client</span>
+              
+                <span class="tag neumorphism-card">etcd</span>
+              
+                <span class="tag neumorphism-card">apiserver</span>
+              
+            </div>
+          
+        </div>
+      
+    
+      
+        <div class="project neumorphism-card" data-aos="zoom-in-down">
+          <div class="name-link-wrapper">
+            <h3>Ethereum源码分析</h3>
+            <div class="links">
+              
+                
+            </div>
+          </div>
+          <p class="project-desc">对以太坊源码进行深入而详细的研究&学习。</p>
+          
+          <a class="highlight-link" href="https://github.com/gosources/ethereum" target="_blank" rel="noreferrer">
+            Github
+          </a>
+          
+            <div class="tag-wrapper">
+              
+                <span class="tag neumorphism-card">Golang</span>
+              
+                <span class="tag neumorphism-card">BlockChain</span>
+              
+                <span class="tag neumorphism-card">decentration</span>
+              
+              
+            </div>
+          
+        </div>
+      
+    
+      
+    
+  </div>
+
+
+
+
+      </section>
+    
+    
+    <section class="card neumorphism-card-big">
+      <h1 class="title">联系我</h1>
+<p class="subtitle">看完上面这些内容，你应该对我有个大体的了解。有任何问题都可以通过下面链接联系我</p>
+
+<div class="contact-icons">
+  
+      
+
+        <a class="social-link email" aria-label="My E-Mail" href="mailto:admin@zhaoweiguo.com">
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/solid.svg#envelope""></use>
+            </svg>
+          </div>
+        </a>
+      
+
+      
+        <a class="social-link" aria-label="My GitHub" target="_blank" rel="noreferrer"
+          href="https://github.com/zhaoweiguo"
+        >
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#github"></use>
+            </svg>
+          </div>
+        </a>
+      
+
+      
+        <a class="social-link" aria-label="My zhihu" target="_blank" rel="noreferrer"
+          href="https://www.zhihu.com/people/zhaoweiguo.com"
+        >
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#zhihu"></use>
+            </svg>
+          </div>
+        </a>
+      
+
+      
+        <a class="social-link" aria-label="My Bilibili" target="_blank" rel="noreferrer"
+          href="https://space.bilibili.com/515915051"
+        >
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#bili"></use>
+            </svg>
+          </div>
+        </a>
+      
+
+      
+        <a class="social-link linkedin" aria-label="My LinkedIn" target="_blank"
+          rel="noreferrer" href="https://www.linkedin.com/in/zhaoweiguo"
+        >
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#linkedin-in"></use>
+            </svg>
+          </div>
+        </a>
+      
+
+      
+        <a class="social-link QQ" aria-label="My QQ" target="_blank"
+          rel="noreferrer" onclick="javascript: alert('这个还没弄好')" 
+        >
+          <div class="social">
+            <svg class="social-svg" viewBox="0 0 48 48">
+              <use x="12" y="12" width="24" height="24" viewBox="0 0 48 48" xlink:href="/assets/img/brands.svg#qq"></use>
+            </svg>
+          </div>
+        </a>
+</div>
+
+    </section>
+    
+  </div>
+  <footer class="footer">
+  <p>
+    &copy; 2020 Designed & Developed by
+    <a class="highlight-link" href="https://www.zhaoweiguo.com/" target="_blank" rel="noreferrer">
+      赵卫国
+    </a>
+  </p>
+  <p>
+    Modified From
+    <a class="highlight-link" href="https://github.com/longpdo/neumorphism"target="_blank" rel="noreferrer">
+      longpdo
+    </a>
+  </p>
+</footer>
+
+<!-- Google Analytics -->
+
+<script>
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "https://www.google-analytics.com/analytics.js",
+      "ga"
+    );
+    ga("create", "UA-158757509-2", "auto");
+    ga("send", "pageview");
+  }
+</script>
+
+
+</body>
+</html>
