@@ -1,0 +1,17 @@
+云原生应用的12要素
+#########################
+
+
+
+.. uml:: ./12Factor.puml
+
+
+
+参考
+====
+
+https://cloud.tencent.com/developer/article/1034398
+
+
+
+

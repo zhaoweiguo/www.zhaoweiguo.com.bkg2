@@ -1,0 +1,15 @@
+软件架构——C4模型
+################
+
+* 官网: https://c4model.com/
+
+
+.. uml:: ./architecture-c4-model.puml
+
+
+
+参考
+====
+
+* 可视化架构设计——C4介绍: https://www.jianshu.com/p/33c6a7ed126f
+

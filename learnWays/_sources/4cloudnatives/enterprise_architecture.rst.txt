@@ -1,0 +1,20 @@
+企业架构演化
+############
+
+
+
+.. uml:: ./enterprise_architecture.puml
+
+
+
+
+参考
+====
+
+* `从1到2000个微服务，史上最落地的实践云原生25个步骤 <https://mp.weixin.qq.com/s/64cJJj14Ro4z0nAzQm4GGg>`_
+* `以业务为核心的云原生体系建设 <https://mp.weixin.qq.com/s/8Rn3N51GpaSyrp7VR7XBVw>`_
+
+
+
+
+

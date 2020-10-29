@@ -1,0 +1,9 @@
+心理学
+########
+
+
+.. toctree::
+   :maxdepth: 2
+
+   8psychologys/iceberg_theory
+
