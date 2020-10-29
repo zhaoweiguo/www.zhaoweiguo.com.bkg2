@@ -1,0 +1,379 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>实例out-of-cluster-client-configuration &mdash; Kubernetes源码分析 v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="实例in-cluster-client-configuration" href="in-cluster-client-configuration.html" />
+    <link rel="prev" title="使用实例" href="../usage.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+<script>
+// 百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?042289284b8eb33866001347a3e0b129";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-178653440-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-178653440-3');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Kubernetes源码分析
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubernetes.html">kubernates项目</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../kubernetes.html#id1">代码前分析</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../client-go.html">client-go项目</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../preface.html">代码前分析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id2">代码量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id3">目录结构</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../client.html">Client对象</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../usage.html">使用实例</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">实例out-of-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="in-cluster-client-configuration.html">实例in-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="create-update-delete-deployment.html">实例create-update-delete-deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="demo-rest-client.html">实例: rest client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="demo-discovery-client.html">实例: discovery client</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../types/type_clientset.html">type Clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types/type_config.html">type config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types/type_config_tls.html">type config tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types/type_config_tool.html">tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types/type_config_tool_2.html">tool2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types/type_request.html">Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types/type_request_result.html">type request Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types/type_restclient.html">type2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types/type_transport.html">type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../func.html">函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_clientset.html">func clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_config.html">func config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_gen.html">func gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_request.html">func request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_restclient.html">func RESTClient</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture.html">架构设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../informer.html">informer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/preface.html#id2">3大核心组件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/usages/factory.html">工厂模式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/func.html">函数相关</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_gen.html">gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_factory.html">informers.NewSharedInformerFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html">coreV1.NewFilteredPodInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newsharedindexinformer">cache.NewSharedIndexInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newindexer">cache.NewIndexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newprocesslistener">cache.newProcessListener</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_run.html">informer启动</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/informer_factory.html">Informer Factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_controller.html">Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_fifo.html">FIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_fifo_Delta.html">DeltaFIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_indexer.html">Indexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_informer.html">cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_processor.html">processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_reflector.html">Reflector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_store.html">type cache store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_informerFactory.html">type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_Lister.html">Lister</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubewatch.html">kubewatch项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">参考文章</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Kubernetes源码分析</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../client-go.html">client-go项目</a> &raquo;</li>
+        
+          <li><a href="../../client.html">Client对象</a> &raquo;</li>
+        
+          <li><a href="../usage.html">使用实例</a> &raquo;</li>
+        
+      <li>实例out-of-cluster-client-configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="out-of-cluster-client-configuration">
+<span id="example-out-of-cluster-client-configuration"></span><h1>实例out-of-cluster-client-configuration<a class="headerlink" href="#out-of-cluster-client-configuration" title="Permalink to this headline">¶</a></h1>
+<p>好了，我们先一起看下这一个项目，这个实例实现的是在集群外部连接集群获取clientset并返回pod列表。先看下核心代码：</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>52
+53
+54
+55
+56
+57
+58</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nx">config</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">clientcmd</span><span class="p">.</span><span class="nx">BuildConfigFromFlags</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="nx">kubeconfig</span><span class="p">)</span>
+ <span class="o">...</span>
+ <span class="nx">clientset</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">kubernetes</span><span class="p">.</span><span class="nx">NewForConfig</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+ <span class="o">...</span>
+ <span class="nx">podClient</span> <span class="o">:=</span> <span class="nx">clientset</span><span class="p">.</span><span class="nx">CoreV1</span><span class="p">().</span><span class="nx">Pods</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+ <span class="nx">pods</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">podClient</span><span class="p">.</span><span class="nx">List</span><span class="p">(</span><span class="nx">metav1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">{})</span>
+ <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;There are %d pods in the cluster\n&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pods</span><span class="p">.</span><span class="nx">Items</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>核心代码就这么少，先看下它的步骤:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1. 把~/.kube/config文件内容转化为「配置文件对象」
+2. 生成「clientset对象」
+3. 获取需要查询的结果，即「pod列表对象」
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p>获取 <code class="docutils literal notranslate"><span class="pre">*k8s.io/client-go/rest.Config</span></code> 对象:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">即把</span><span class="o">~/.</span><span class="n">kube</span><span class="o">/</span><span class="n">config中的凭证信息通过如下函数转化为rest</span><span class="o">.</span><span class="n">Config对象</span>
+<span class="n">clientcmd</span><span class="o">.</span><span class="n">BuildConfigFromFlags</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">kubeconfig</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>获取 <code class="docutils literal notranslate"><span class="pre">*k8s.io/client-go/kubernetes/Clientset</span></code> 对象:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>clientset看名字需要知道，它是一个client集合，里面存放着多种client
+它的本质是对restClient的封装(这块后面会详解)
+通过如下命令：
+kubernetes.NewForConfig(config)
+获取kubernetes.Clientset对象
+client对象获取后就可以请求api-server(操作k8s本质是请求api-server)
+</pre></div>
+</div>
+</li>
+<li><p>获取 <code class="docutils literal notranslate"><span class="pre">k8s.io/client-go/kubernetes/typed/core/v1/PodList</span></code> 对象:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>先获取Pod类型的client
+podClient := clientset.CoreV1().Pods(&quot;&quot;)
+前面说了clientset是client集合，里面有pod, deploy, service...类型的client
+
+podClient实现了 k8s.io/client-go/kubernetes/typed/core/v1/PodInterface 接口
+里面有List方法获取v1.PodList列表
+podClient.List(metav1.ListOptions{})
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="in-cluster-client-configuration.html" class="btn btn-neutral float-right" title="实例in-cluster-client-configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../usage.html" class="btn btn-neutral" title="使用实例" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, 赵卫国.
+
+    </p>
+  </div>
+  <div>备案号 <a href="http://www.beian.miit.gov.cn">京ICP备16018553号</a></div><div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a></div>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'v1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/language_data.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

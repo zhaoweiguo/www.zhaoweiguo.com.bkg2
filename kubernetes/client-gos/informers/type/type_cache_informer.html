@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cache &mdash; Kubernetes源码分析 v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="processor" href="type_cache_processor.html" />
+    <link rel="prev" title="Indexer" href="type_cache_indexer.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+<script>
+// 百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?042289284b8eb33866001347a3e0b129";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-178653440-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-178653440-3');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Kubernetes源码分析
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubernetes.html">kubernates项目</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../kubernetes.html#id1">代码前分析</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../client-go.html">client-go项目</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../preface.html">代码前分析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id2">代码量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id3">目录结构</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../client.html">Client对象</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../clients/preface.html">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../clients/usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/out-of-cluster-client-configuration.html">实例out-of-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/in-cluster-client-configuration.html">实例in-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/create-update-delete-deployment.html">实例create-update-delete-deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/demo-rest-client.html">实例: rest client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/demo-discovery-client.html">实例: discovery client</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../clients/type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_clientset.html">type Clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_config.html">type config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_config_tls.html">type config tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_config_tool.html">tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_config_tool_2.html">tool2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_request.html">Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_request_result.html">type request Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_restclient.html">type2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_transport.html">type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../clients/func.html">函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_clientset.html">func clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_config.html">func config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_gen.html">func gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_request.html">func request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_restclient.html">func RESTClient</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture.html">架构设计</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../informer.html">informer</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../preface.html#id2">3大核心组件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../usages/factory.html">工厂模式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../func.html">函数相关</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_gen.html">gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_factory.html">informers.NewSharedInformerFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_informer.html">coreV1.NewFilteredPodInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_informer.html#cache-newsharedindexinformer">cache.NewSharedIndexInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_informer.html#cache-newindexer">cache.NewIndexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_informer.html#cache-newprocesslistener">cache.newProcessListener</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_run.html">informer启动</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../type.html">类型</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="informer_factory.html">Informer Factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_cache_controller.html">Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_cache_fifo.html">FIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_cache_fifo_Delta.html">DeltaFIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_cache_indexer.html">Indexer</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_cache_processor.html">processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_cache_reflector.html">Reflector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_cache_store.html">type cache store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_informerFactory.html">type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_Lister.html">Lister</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubewatch.html">kubewatch项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">参考文章</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Kubernetes源码分析</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../client-go.html">client-go项目</a> &raquo;</li>
+        
+          <li><a href="../../informer.html">informer</a> &raquo;</li>
+        
+          <li><a href="../type.html">类型</a> &raquo;</li>
+        
+      <li>cache</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cache">
+<h1>cache<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cache-sharedindexinformer">
+<h2>cache.SharedIndexInformer<a class="headerlink" href="#cache-sharedindexinformer" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/cache/shared_informer.go</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>66
+67
+68
+69
+70
+71</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">SharedIndexInformer</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">SharedInformer</span>
+   <span class="c1">// AddIndexers add indexers to the informer before it starts.</span>
+   <span class="nx">AddIndexers</span><span class="p">(</span><span class="nx">indexers</span> <span class="nx">Indexers</span><span class="p">)</span> <span class="kt">error</span>
+   <span class="nx">GetIndexer</span><span class="p">()</span> <span class="nx">Indexer</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/cache/shared_informer.go</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>43
+44
+45
+46
+47
+48
+49
+50
+51</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">SharedInformer</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">AddEventHandler</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">ResourceEventHandler</span><span class="p">)</span>
+   <span class="nx">AddEventHandlerWithResyncPeriod</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">ResourceEventHandler</span><span class="p">,</span> <span class="nx">resyncPeriod</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span>
+   <span class="nx">GetStore</span><span class="p">()</span> <span class="nx">Store</span>
+   <span class="nx">GetController</span><span class="p">()</span> <span class="nx">Controller</span>
+   <span class="nx">Run</span><span class="p">(</span><span class="nx">stopCh</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
+   <span class="nx">HasSynced</span><span class="p">()</span> <span class="kt">bool</span>
+   <span class="nx">LastSyncResourceVersion</span><span class="p">()</span> <span class="kt">string</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/cache/shared_informer.go</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">sharedIndexInformer</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">indexer</span>    <span class="nx">Indexer</span>
+   <span class="nx">controller</span> <span class="nx">Controller</span>
+
+   <span class="nx">processor</span>             <span class="o">*</span><span class="nx">sharedProcessor</span>
+   <span class="nx">cacheMutationDetector</span> <span class="nx">CacheMutationDetector</span>
+
+   <span class="nx">listerWatcher</span> <span class="nx">ListerWatcher</span>
+   <span class="nx">objectType</span>    <span class="nx">runtime</span><span class="p">.</span><span class="nx">Object</span>
+
+   <span class="nx">resyncCheckPeriod</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+   <span class="nx">defaultEventHandlerResyncPeriod</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+   <span class="nx">clock</span> <span class="nx">clock</span><span class="p">.</span><span class="nx">Clock</span>
+
+   <span class="nx">started</span><span class="p">,</span> <span class="nx">stopped</span> <span class="kt">bool</span>
+   <span class="nx">startedLock</span>      <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+
+   <span class="nx">blockDeltas</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/cache/shared_informer.go</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>273
+274
+275</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">sharedIndexInformer</span><span class="p">)</span> <span class="nx">AddEventHandler</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">ResourceEventHandler</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">s</span><span class="p">.</span><span class="nx">AddEventHandlerWithResyncPeriod</span><span class="p">(</span><span class="nx">handler</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">defaultEventHandlerResyncPeriod</span><span class="p">)</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/cache/shared_informer.go</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">sharedIndexInformer</span><span class="p">)</span> <span class="nx">AddEventHandlerWithResyncPeriod</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">ResourceEventHandler</span><span class="p">,</span> <span class="nx">resyncPeriod</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">s</span><span class="p">.</span><span class="nx">startedLock</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
+   <span class="k">defer</span> <span class="nx">s</span><span class="p">.</span><span class="nx">startedLock</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
+   <span class="o">...</span> <span class="o">...</span>
+   <span class="nx">listener</span> <span class="o">:=</span> <span class="nx">newProcessListener</span><span class="p">(</span><span class="nx">handler</span><span class="p">,</span> <span class="nx">resyncPeriod</span><span class="p">,</span>
+           <span class="nx">determineResyncPeriod</span><span class="p">(</span><span class="nx">resyncPeriod</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">resyncCheckPeriod</span><span class="p">),</span>
+           <span class="nx">s</span><span class="p">.</span><span class="nx">clock</span><span class="p">.</span><span class="nx">Now</span><span class="p">(),</span> <span class="nx">initialBufferSize</span><span class="p">)</span>
+
+   <span class="c1">// in order to safely join, we have to</span>
+   <span class="c1">// 1. stop sending add/update/delete notifications</span>
+   <span class="c1">// 2. do a list against the store</span>
+   <span class="c1">// 3. send synthetic &quot;Add&quot; events to the new handler</span>
+   <span class="c1">// 4. unblock</span>
+   <span class="nx">s</span><span class="p">.</span><span class="nx">blockDeltas</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
+   <span class="k">defer</span> <span class="nx">s</span><span class="p">.</span><span class="nx">blockDeltas</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
+
+   <span class="nx">s</span><span class="p">.</span><span class="nx">processor</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">listener</span><span class="p">)</span>
+   <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">item</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span><span class="p">.</span><span class="nx">indexer</span><span class="p">.</span><span class="nx">List</span><span class="p">()</span> <span class="p">{</span>
+     <span class="nx">listener</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">addNotification</span><span class="p">{</span><span class="nx">newObj</span><span class="p">:</span> <span class="nx">item</span><span class="p">})</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="resourceeventhandler">
+<h2>ResourceEventHandler<a class="headerlink" href="#resourceeventhandler" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/cache/controller.go</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>177
+178
+179
+180
+181</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">ResourceEventHandler</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">OnAdd</span><span class="p">(</span><span class="nx">obj</span> <span class="kd">interface</span><span class="p">{})</span>
+   <span class="nx">OnUpdate</span><span class="p">(</span><span class="nx">oldObj</span><span class="p">,</span> <span class="nx">newObj</span> <span class="kd">interface</span><span class="p">{})</span>
+   <span class="nx">OnDelete</span><span class="p">(</span><span class="nx">obj</span> <span class="kd">interface</span><span class="p">{})</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/cache/controller.go</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>186
+187
+188
+189
+190</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">ResourceEventHandlerFuncs</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">AddFunc</span>    <span class="kd">func</span><span class="p">(</span><span class="nx">obj</span> <span class="kd">interface</span><span class="p">{})</span>
+   <span class="nx">UpdateFunc</span> <span class="kd">func</span><span class="p">(</span><span class="nx">oldObj</span><span class="p">,</span> <span class="nx">newObj</span> <span class="kd">interface</span><span class="p">{})</span>
+   <span class="nx">DeleteFunc</span> <span class="kd">func</span><span class="p">(</span><span class="nx">obj</span> <span class="kd">interface</span><span class="p">{})</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="type_cache_processor.html" class="btn btn-neutral float-right" title="processor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="type_cache_indexer.html" class="btn btn-neutral" title="Indexer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, 赵卫国.
+
+    </p>
+  </div>
+  <div>备案号 <a href="http://www.beian.miit.gov.cn">京ICP备16018553号</a></div><div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a></div>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'v1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/language_data.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

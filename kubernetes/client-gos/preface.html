@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>代码前分析 &mdash; Kubernetes源码分析 v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Client对象" href="client.html" />
+    <link rel="prev" title="client-go项目" href="../client-go.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+<script>
+// 百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?042289284b8eb33866001347a3e0b129";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-178653440-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-178653440-3');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Kubernetes源码分析
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kubernetes.html">kubernates项目</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kubernetes.html#id1">代码前分析</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../client-go.html">client-go项目</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">代码前分析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">代码量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">目录结构</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="client.html">Client对象</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="clients/preface.html">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clients/usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="clients/usages/out-of-cluster-client-configuration.html">实例out-of-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/usages/in-cluster-client-configuration.html">实例in-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/usages/create-update-delete-deployment.html">实例create-update-delete-deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/usages/demo-rest-client.html">实例: rest client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/usages/demo-discovery-client.html">实例: discovery client</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="clients/type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="clients/types/type_clientset.html">type Clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/types/type_config.html">type config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/types/type_config_tls.html">type config tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/types/type_config_tool.html">tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/types/type_config_tool_2.html">tool2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/types/type_request.html">Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/types/type_request_result.html">type request Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/types/type_restclient.html">type2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/types/type_transport.html">type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="clients/func.html">函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="clients/func/func_clientset.html">func clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/func/func_config.html">func config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/func/func_gen.html">func gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/func/func_request.html">func request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clients/func/func_restclient.html">func RESTClient</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">架构设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="informer.html">informer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="informers/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="informers/preface.html#id2">3大核心组件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="informers/usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="informers/usages/factory.html">工厂模式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="informers/func.html">函数相关</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="informers/func/func_gen.html">gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/func/func_factory.html">informers.NewSharedInformerFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/func/func_informer.html">coreV1.NewFilteredPodInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/func/func_informer.html#cache-newsharedindexinformer">cache.NewSharedIndexInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/func/func_informer.html#cache-newindexer">cache.NewIndexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/func/func_informer.html#cache-newprocesslistener">cache.newProcessListener</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/func/func_run.html">informer启动</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="informers/type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/informer_factory.html">Informer Factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_cache_controller.html">Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_cache_fifo.html">FIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_cache_fifo_Delta.html">DeltaFIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_cache_indexer.html">Indexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_cache_informer.html">cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_cache_processor.html">processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_cache_reflector.html">Reflector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_cache_store.html">type cache store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_informerFactory.html">type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="informers/type/type_Lister.html">Lister</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kubewatch.html">kubewatch项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">参考文章</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Kubernetes源码分析</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../client-go.html">client-go项目</a> &raquo;</li>
+        
+      <li>代码前分析</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>代码前分析<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>代码量<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>查看代码量情况:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cloc .
+    1075 text files.
+     995 unique files.
+     105 files ignored.
+
+github.com/AlDanial/cloc v 1.86  T=1.18 s (826.1 files/s, 104506.2 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Go                             945          17019          22843          80830
+Markdown                        15            551              0           1025
+JSON                             1              0              0            382
+XML                              7              0              0            120
+Starlark                         1              1             19             18
+Bourne Shell                     1              2             13              3
+Dockerfile                       1              1             13              3
+-------------------------------------------------------------------------------
+SUM:                           971          17574          22888          82381
+-------------------------------------------------------------------------------
+</pre></div>
+</div>
+<p>分析:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>80k的代码量，一个中型项目
+算是比较大的一个项目，需要按中型项目来处理，估计学习时间2个月
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>目录结构<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>查看目录结构:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tree -L 1
+.
+├── discovery       五种Client之一(用于资源发现)
+├── dynamic         五种Client之二(非结构化的数据获取资源)
+├── examples        几个使用的小例子
+├── informers       informer相关
+├── kubernetes      五种Client之三(最重要的client)
+├── listers         Lister相关(Get, List方法)
+├── pkg
+├── plugin          插件相关
+├── rest            五种Client之四(最底层的client，其他client基于它)
+├── restmapper
+├── scale           五种Client之五(用于扩容、缩容)
+├── tools           工具类
+├── transport       传输层相关
+└── util            常用方法
+</pre></div>
+</div>
+<p>主要可以分为3大部分:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="mi">5</span><span class="n">种Client</span>
+<span class="mf">2.</span> <span class="n">Informer</span> <span class="o">&amp;</span> <span class="n">Lister</span>
+<span class="mf">3.</span> <span class="n">其他边边角角</span>
+</pre></div>
+</div>
+<p>看到这儿，大家已经在整体上有了一个很浅显的认识。但不要一头扎进代码里，80k的代码量很容易让你陷入进去出不来。所以在研究代码之前，先带大家一起找几个例子使用使用，先在心里有一个简单的认识，知道他的用途，未来可能会在哪里用到。可能有同学已经注意到了，上面目录结构里面有一个 <code class="docutils literal notranslate"><span class="pre">examples</span></code> 目录，里面就存放着几个小例子，我们下一节就带大家先看看这几个小例子。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="client.html" class="btn btn-neutral float-right" title="Client对象" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../client-go.html" class="btn btn-neutral" title="client-go项目" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, 赵卫国.
+
+    </p>
+  </div>
+  <div>备案号 <a href="http://www.beian.miit.gov.cn">京ICP备16018553号</a></div><div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a></div>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

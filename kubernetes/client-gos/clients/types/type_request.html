@@ -1,0 +1,631 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Request &mdash; Kubernetes源码分析 v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="type request Result" href="type_request_result.html" />
+    <link rel="prev" title="tool2" href="type_config_tool_2.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+<script>
+// 百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?042289284b8eb33866001347a3e0b129";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-178653440-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-178653440-3');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Kubernetes源码分析
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubernetes.html">kubernates项目</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../kubernetes.html#id1">代码前分析</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../client-go.html">client-go项目</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../preface.html">代码前分析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id2">代码量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id3">目录结构</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../client.html">Client对象</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../usages/out-of-cluster-client-configuration.html">实例out-of-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/in-cluster-client-configuration.html">实例in-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/create-update-delete-deployment.html">实例create-update-delete-deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/demo-rest-client.html">实例: rest client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/demo-discovery-client.html">实例: discovery client</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../type.html">类型</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="type_clientset.html">type Clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config.html">type config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config_tls.html">type config tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config_tool.html">tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config_tool_2.html">tool2</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_request_result.html">type request Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_restclient.html">type2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_transport.html">type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../func.html">函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_clientset.html">func clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_config.html">func config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_gen.html">func gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_request.html">func request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_restclient.html">func RESTClient</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture.html">架构设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../informer.html">informer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/preface.html#id2">3大核心组件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/usages/factory.html">工厂模式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/func.html">函数相关</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_gen.html">gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_factory.html">informers.NewSharedInformerFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html">coreV1.NewFilteredPodInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newsharedindexinformer">cache.NewSharedIndexInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newindexer">cache.NewIndexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newprocesslistener">cache.newProcessListener</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_run.html">informer启动</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/informer_factory.html">Informer Factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_controller.html">Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_fifo.html">FIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_fifo_Delta.html">DeltaFIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_indexer.html">Indexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_informer.html">cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_processor.html">processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_reflector.html">Reflector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_store.html">type cache store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_informerFactory.html">type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_Lister.html">Lister</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubewatch.html">kubewatch项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">参考文章</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Kubernetes源码分析</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../client-go.html">client-go项目</a> &raquo;</li>
+        
+          <li><a href="../../client.html">Client对象</a> &raquo;</li>
+        
+          <li><a href="../type.html">类型</a> &raquo;</li>
+        
+      <li>Request</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="request">
+<h1>Request<a class="headerlink" href="#request" title="Permalink to this headline">¶</a></h1>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/rest/request.go</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">Request</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="c1">// required</span>
+   <span class="nx">client</span> <span class="nx">HTTPClient</span>
+   <span class="nx">verb</span>   <span class="kt">string</span>
+
+   <span class="nx">baseURL</span>     <span class="o">*</span><span class="nx">url</span><span class="p">.</span><span class="nx">URL</span>
+   <span class="nx">content</span>     <span class="nx">ContentConfig</span>
+   <span class="nx">serializers</span> <span class="nx">Serializers</span>
+
+   <span class="c1">// generic components accessible via method setters</span>
+   <span class="nx">pathPrefix</span> <span class="kt">string</span>
+   <span class="nx">subpath</span>    <span class="kt">string</span>
+   <span class="nx">params</span>     <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span>
+   <span class="nx">headers</span>    <span class="nx">http</span><span class="p">.</span><span class="nx">Header</span>
+
+   <span class="c1">// structural elements of the request that are part of the Kubernetes API conventions</span>
+   <span class="nx">namespace</span>    <span class="kt">string</span>
+   <span class="nx">namespaceSet</span> <span class="kt">bool</span>
+   <span class="nx">resource</span>     <span class="kt">string</span>
+   <span class="nx">resourceName</span> <span class="kt">string</span>
+   <span class="nx">subresource</span>  <span class="kt">string</span>
+   <span class="nx">timeout</span>      <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+
+   <span class="c1">// output</span>
+   <span class="nx">err</span>  <span class="kt">error</span>
+   <span class="nx">body</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span>
+
+   <span class="c1">// This is only used for per-request timeouts, deadlines, and cancellations.</span>
+   <span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+
+   <span class="nx">backoffMgr</span> <span class="nx">BackoffManager</span>
+   <span class="nx">throttle</span>   <span class="nx">flowcontrol</span><span class="p">.</span><span class="nx">RateLimiter</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/rest/request.go</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="nx">Namespace</span><span class="p">(</span><span class="nx">namespace</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">Request</span> <span class="p">{</span>
+   <span class="o">...</span> <span class="o">...</span>
+   <span class="nx">r</span><span class="p">.</span><span class="nx">namespaceSet</span> <span class="p">=</span> <span class="kc">true</span>
+   <span class="nx">r</span><span class="p">.</span><span class="nx">namespace</span> <span class="p">=</span> <span class="nx">namespace</span>
+   <span class="k">return</span> <span class="nx">r</span>
+ <span class="p">}</span>
+ <span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="nx">Resource</span><span class="p">(</span><span class="nx">resource</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">Request</span> <span class="p">{</span>
+   <span class="nx">r</span><span class="p">.</span><span class="nx">resource</span> <span class="p">=</span> <span class="nx">resource</span>
+   <span class="k">return</span> <span class="nx">r</span>
+ <span class="p">}</span>
+ <span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="nx">VersionedParams</span><span class="p">(</span><span class="nx">obj</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">Object</span><span class="p">,</span> <span class="nx">codec</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">ParameterCodec</span><span class="p">)</span> <span class="o">*</span><span class="nx">Request</span> <span class="p">{</span>
+     <span class="nx">params</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">codec</span><span class="p">.</span><span class="nx">EncodeParameters</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">version</span><span class="p">)</span>
+     <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">params</span> <span class="p">{</span>
+       <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">params</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+         <span class="nx">r</span><span class="p">.</span><span class="nx">params</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span>
+       <span class="p">}</span>
+       <span class="nx">r</span><span class="p">.</span><span class="nx">params</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">params</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">v</span><span class="o">...</span><span class="p">)</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="nx">r</span>
+ <span class="p">}</span>
+ <span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="nx">Timeout</span><span class="p">(</span><span class="nx">d</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="o">*</span><span class="nx">Request</span> <span class="p">{</span>
+   <span class="nx">r</span><span class="p">.</span><span class="nx">timeout</span> <span class="p">=</span> <span class="nx">d</span>
+   <span class="k">return</span> <span class="nx">r</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/rest/request.go</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>800
+801
+802
+803
+804
+805
+806</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="nx">Do</span><span class="p">()</span> <span class="nx">Result</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">result</span> <span class="nx">Result</span>
+   <span class="nx">err</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">resp</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Response</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">result</span> <span class="p">=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">transformResponse</span><span class="p">(</span><span class="nx">resp</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
+   <span class="p">})</span>
+   <span class="k">return</span> <span class="nx">result</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/rest/request.go</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="nx">request</span><span class="p">(</span><span class="nx">fn</span> <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Response</span><span class="p">))</span> <span class="kt">error</span> <span class="p">{</span>
+   <span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+   <span class="nx">client</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">client</span>
+   <span class="nx">maxRetries</span> <span class="o">:=</span> <span class="mi">10</span>
+   <span class="nx">retries</span> <span class="o">:=</span> <span class="mi">0</span>
+
+   <span class="k">for</span> <span class="p">{</span>
+     <span class="nx">url</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">().</span><span class="nx">String</span><span class="p">()</span>
+     <span class="nx">req</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">verb</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
+     <span class="nx">req</span><span class="p">.</span><span class="nx">Header</span> <span class="p">=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">headers</span>
+
+     <span class="c1">// 具体的http请求执行</span>
+     <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span>   <span class="c1">// @todo 制造一个例子来走一遍逻辑</span>
+
+     <span class="nx">done</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+       <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+         <span class="kd">const</span> <span class="nx">maxBodySlurpSize</span> <span class="p">=</span> <span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="mi">10</span>
+         <span class="k">if</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">ContentLength</span> <span class="o">&lt;=</span> <span class="nx">maxBodySlurpSize</span> <span class="p">{</span>
+           <span class="nx">io</span><span class="p">.</span><span class="nx">Copy</span><span class="p">(</span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">Discard</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">io</span><span class="p">.</span><span class="nx">LimitedReader</span><span class="p">{</span><span class="nx">R</span><span class="p">:</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">,</span> <span class="nx">N</span><span class="p">:</span> <span class="nx">maxBodySlurpSize</span><span class="p">})</span>
+         <span class="p">}</span>
+         <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+       <span class="p">}()</span>
+
+       <span class="nx">retries</span><span class="o">++</span>
+       <span class="k">if</span> <span class="nx">seconds</span><span class="p">,</span> <span class="nx">wait</span> <span class="o">:=</span> <span class="nx">checkWait</span><span class="p">(</span><span class="nx">resp</span><span class="p">);</span> <span class="nx">wait</span> <span class="o">&amp;&amp;</span> <span class="nx">retries</span> <span class="p">&lt;</span> <span class="nx">maxRetries</span> <span class="p">{</span>
+         <span class="k">if</span> <span class="nx">seeker</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">body</span><span class="p">.(</span><span class="nx">io</span><span class="p">.</span><span class="nx">Seeker</span><span class="p">);</span> <span class="nx">ok</span> <span class="o">&amp;&amp;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">body</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+           <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">seeker</span><span class="p">.</span><span class="nx">Seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="p">}</span>
+
+         <span class="nx">r</span><span class="p">.</span><span class="nx">backoffMgr</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">(</span><span class="nx">seconds</span><span class="p">)</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+         <span class="k">return</span> <span class="kc">false</span>
+       <span class="p">}</span>
+       <span class="nx">fn</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">resp</span><span class="p">)</span>
+       <span class="k">return</span> <span class="kc">true</span>
+     <span class="p">}()</span>
+     <span class="k">if</span> <span class="nx">done</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="kc">nil</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/rest/request.go</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1020
+1021
+1022
+1023
+1024
+1025
+1026
+1027
+1028
+1029</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="nx">checkWait</span><span class="p">(</span><span class="nx">resp</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Response</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">switch</span> <span class="nx">r</span> <span class="o">:=</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">;</span> <span class="p">{</span>
+   <span class="c1">// any 500 error code and 429 can trigger a wait</span>
+   <span class="k">case</span> <span class="nx">r</span> <span class="o">==</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusTooManyRequests</span><span class="p">,</span> <span class="nx">r</span> <span class="o">&gt;=</span> <span class="mi">500</span><span class="p">:</span>
+   <span class="k">default</span><span class="p">:</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">false</span>
+   <span class="p">}</span>
+   <span class="nx">i</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">retryAfterSeconds</span><span class="p">(</span><span class="nx">resp</span><span class="p">)</span>
+   <span class="k">return</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ok</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/rest/request.go</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="nx">transformResponse</span><span class="p">(</span><span class="nx">resp</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="nx">Result</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">body</span> <span class="p">[]</span><span class="kt">byte</span>
+   <span class="k">if</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+     <span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+     <span class="k">switch</span> <span class="nx">err</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">case</span> <span class="kc">nil</span><span class="p">:</span>
+       <span class="nx">body</span> <span class="p">=</span> <span class="nx">data</span>
+     <span class="k">default</span><span class="p">:</span>
+       <span class="nx">klog</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Unexpected error when reading response body: %#v&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+       <span class="nx">unexpectedErr</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Unexpected error %#v reading response body.&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+       <span class="k">return</span> <span class="nx">Result</span><span class="p">{</span>
+         <span class="nx">err</span><span class="p">:</span> <span class="nx">unexpectedErr</span><span class="p">,</span>
+       <span class="p">}</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// verify the content type is accurate</span>
+   <span class="nx">contentType</span> <span class="o">:=</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">)</span>
+   <span class="nx">decoder</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">serializers</span><span class="p">.</span><span class="nx">Decoder</span>
+
+   <span class="k">return</span> <span class="nx">Result</span><span class="p">{</span>
+     <span class="nx">body</span><span class="p">:</span>        <span class="nx">body</span><span class="p">,</span>
+     <span class="nx">contentType</span><span class="p">:</span> <span class="nx">contentType</span><span class="p">,</span>
+     <span class="nx">statusCode</span><span class="p">:</span>  <span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">,</span>
+     <span class="nx">decoder</span><span class="p">:</span>     <span class="nx">decoder</span><span class="p">,</span>   <span class="c1">// config.NegotiatedSerializer.DecoderToVersion(info.Serializer, internalGV)</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="type_request_result.html" class="btn btn-neutral float-right" title="type request Result" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="type_config_tool_2.html" class="btn btn-neutral" title="tool2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, 赵卫国.
+
+    </p>
+  </div>
+  <div>备案号 <a href="http://www.beian.miit.gov.cn">京ICP备16018553号</a></div><div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a></div>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'v1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/language_data.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

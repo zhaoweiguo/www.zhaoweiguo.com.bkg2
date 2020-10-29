@@ -1,0 +1,729 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>工厂模式 &mdash; Kubernetes源码分析 v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="函数相关" href="../func.html" />
+    <link rel="prev" title="使用实例" href="../usage.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+<script>
+// 百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?042289284b8eb33866001347a3e0b129";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-178653440-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-178653440-3');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Kubernetes源码分析
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubernetes.html">kubernates项目</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../kubernetes.html#id1">代码前分析</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../client-go.html">client-go项目</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../preface.html">代码前分析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id2">代码量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id3">目录结构</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../client.html">Client对象</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../clients/preface.html">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../clients/usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/out-of-cluster-client-configuration.html">实例out-of-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/in-cluster-client-configuration.html">实例in-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/create-update-delete-deployment.html">实例create-update-delete-deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/demo-rest-client.html">实例: rest client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/usages/demo-discovery-client.html">实例: discovery client</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../clients/type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_clientset.html">type Clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_config.html">type config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_config_tls.html">type config tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_config_tool.html">tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_config_tool_2.html">tool2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_request.html">Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_request_result.html">type request Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_restclient.html">type2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/types/type_transport.html">type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../clients/func.html">函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_clientset.html">func clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_config.html">func config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_gen.html">func gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_request.html">func request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients/func/func_restclient.html">func RESTClient</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture.html">架构设计</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../informer.html">informer</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../preface.html#id2">3大核心组件</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../usage.html">使用实例</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">工厂模式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../func.html">函数相关</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_gen.html">gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_factory.html">informers.NewSharedInformerFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_informer.html">coreV1.NewFilteredPodInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_informer.html#cache-newsharedindexinformer">cache.NewSharedIndexInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_informer.html#cache-newindexer">cache.NewIndexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_informer.html#cache-newprocesslistener">cache.newProcessListener</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_run.html">informer启动</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../type/informer_factory.html">Informer Factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_cache_controller.html">Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_cache_fifo.html">FIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_cache_fifo_Delta.html">DeltaFIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_cache_indexer.html">Indexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_cache_informer.html">cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_cache_processor.html">processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_cache_reflector.html">Reflector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_cache_store.html">type cache store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_informerFactory.html">type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type/type_Lister.html">Lister</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubewatch.html">kubewatch项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">参考文章</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Kubernetes源码分析</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../client-go.html">client-go项目</a> &raquo;</li>
+        
+          <li><a href="../../informer.html">informer</a> &raquo;</li>
+        
+          <li><a href="../usage.html">使用实例</a> &raquo;</li>
+        
+      <li>工厂模式</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>工厂模式<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>实例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">github.com/gosources/demo-kubernetes/client-go/informer/informer/main.go</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nx">sharedInformers</span> <span class="o">:=</span> <span class="nx">informers</span><span class="p">.</span><span class="nx">NewSharedInformerFactory</span><span class="p">(</span><span class="nx">clientSet</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+ <span class="nx">informer</span> <span class="o">:=</span> <span class="nx">sharedInformers</span><span class="p">.</span><span class="nx">Core</span><span class="p">().</span><span class="nx">V1</span><span class="p">().</span><span class="nx">Pods</span><span class="p">().</span><span class="nx">Informer</span><span class="p">()</span>
+ <span class="nx">informer</span><span class="p">.</span><span class="nx">AddEventHandler</span><span class="p">(</span><span class="nx">cache</span><span class="p">.</span><span class="nx">ResourceEventHandlerFuncs</span><span class="p">{</span>
+   <span class="nx">AddFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">obj</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+   <span class="o">...</span>
+   <span class="p">},</span>
+   <span class="nx">UpdateFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">oldObj</span><span class="p">,</span> <span class="nx">newObj</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+   <span class="o">...</span>
+   <span class="p">},</span>
+   <span class="nx">DeleteFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">obj</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+   <span class="o">...</span>
+   <span class="p">},</span>
+ <span class="p">})</span>
+ <span class="nx">sharedInformers</span><span class="p">.</span><span class="nx">Start</span><span class="p">(</span><span class="nx">stopCh</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="factory">
+<h2>构造生成factory<a class="headerlink" href="#factory" title="Permalink to this headline">¶</a></h2>
+<p>前面已经学了如何生成clientset对象，现在来看下如何生成shareInformer对象。但这儿有个问题，如果每个资源实例都实例化一个informer，太多的informer同时ListAndWatch时，会执行过多重复的序列化和反序列化操作，这会导致API Server负载过重。不同的资源类型使用的是不同的Informer，所以我们使用每个资源类型共享一个Informer的工厂、单例模式来解决这个问题。下面我们来用一个例子来讲述一下工厂模式的实现：</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">github.com/gosources/demo-kubernetes/client-go/informer/informer/main.go</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>32</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nx">sharedInformers</span> <span class="o">:=</span> <span class="nx">informers</span><span class="p">.</span><span class="nx">NewSharedInformerFactory</span><span class="p">(</span><span class="nx">clientSet</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>基于前面生成的clientSet对象，执行 <code class="docutils literal notranslate"><span class="pre">informers.NewSharedInformerFactory</span></code> 命令就可以得到factory对象。我们进去看看</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/factory.go</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="nx">NewSharedInformerFactory</span><span class="p">(</span><span class="nx">client</span> <span class="nx">kubernetes</span><span class="p">.</span><span class="nx">Interface</span><span class="p">,</span> <span class="nx">defaultResync</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="nx">SharedInformerFactory</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">NewSharedInformerFactoryWithOptions</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">defaultResync</span><span class="p">)</span>
+ <span class="p">}</span>
+
+ <span class="kd">func</span> <span class="nx">NewSharedInformerFactoryWithOptions</span><span class="p">(</span><span class="nx">client</span> <span class="nx">kubernetes</span><span class="p">.</span><span class="nx">Interface</span><span class="p">,</span> <span class="nx">defaultResync</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">,</span> <span class="nx">options</span> <span class="o">...</span><span class="nx">SharedInformerOption</span><span class="p">)</span> <span class="nx">SharedInformerFactory</span> <span class="p">{</span>
+   <span class="nx">factory</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">sharedInformerFactory</span><span class="p">{</span>
+     <span class="nx">client</span><span class="p">:</span>           <span class="nx">client</span><span class="p">,</span>
+     <span class="nx">namespace</span><span class="p">:</span>        <span class="nx">v1</span><span class="p">.</span><span class="nx">NamespaceAll</span><span class="p">,</span>
+     <span class="nx">defaultResync</span><span class="p">:</span>    <span class="nx">defaultResync</span><span class="p">,</span>
+     <span class="nx">informers</span><span class="p">:</span>        <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Type</span><span class="p">]</span><span class="nx">cache</span><span class="p">.</span><span class="nx">SharedIndexInformer</span><span class="p">),</span>
+     <span class="nx">startedInformers</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Type</span><span class="p">]</span><span class="kt">bool</span><span class="p">),</span>
+     <span class="nx">customResync</span><span class="p">:</span>     <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Type</span><span class="p">]</span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">),</span>
+   <span class="p">}</span>
+
+   <span class="c1">// Apply all options</span>
+   <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">opt</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">options</span> <span class="p">{</span>
+     <span class="nx">factory</span> <span class="p">=</span> <span class="nx">opt</span><span class="p">(</span><span class="nx">factory</span><span class="p">)</span>
+   <span class="p">}</span>
+
+   <span class="k">return</span> <span class="nx">factory</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>代码也很简单，就是实例化结构 <code class="docutils literal notranslate"><span class="pre">sharedInformerFactory</span></code> ，我们来看看 <code class="docutils literal notranslate"><span class="pre">sharedInformerFactory</span></code> 的结构：</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/factory.go</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">sharedInformerFactory</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">client</span>           <span class="nx">kubernetes</span><span class="p">.</span><span class="nx">Interface</span>
+   <span class="nx">namespace</span>        <span class="kt">string</span>
+   <span class="nx">tweakListOptions</span> <span class="nx">internalinterfaces</span><span class="p">.</span><span class="nx">TweakListOptionsFunc</span>
+   <span class="nx">lock</span>             <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+   <span class="nx">defaultResync</span>    <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+   <span class="nx">customResync</span>     <span class="kd">map</span><span class="p">[</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Type</span><span class="p">]</span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+
+   <span class="nx">informers</span> <span class="kd">map</span><span class="p">[</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Type</span><span class="p">]</span><span class="nx">cache</span><span class="p">.</span><span class="nx">SharedIndexInformer</span>
+
+   <span class="nx">startedInformers</span> <span class="kd">map</span><span class="p">[</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Type</span><span class="p">]</span><span class="kt">bool</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>结构比较简单，clientset对象client，命名空间namespace，同步锁lock，默认同步间隔时间defaultResync，基于对象类型来区分的个性化同步间隔数组customResync，基于对象类型的Informer数组informers，是否有Informer数组startedInformers（用于工厂模式判定factory是否已经实例化Informer）。下面再来看看``sharedInformerFactory``实现了什么接口：</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/factory.go</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>186
+187
+188
+189
+190
+191
+192
+193
+194
+195</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">SharedInformerFactory</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">internalinterfaces</span><span class="p">.</span><span class="nx">SharedInformerFactory</span>
+   <span class="nx">ForResource</span><span class="p">(</span><span class="nx">resource</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">GroupVersionResource</span><span class="p">)</span> <span class="p">(</span><span class="nx">GenericInformer</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="nx">WaitForCacheSync</span><span class="p">(</span><span class="nx">stopCh</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span> <span class="kd">map</span><span class="p">[</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Type</span><span class="p">]</span><span class="kt">bool</span>
+
+   <span class="nx">Apps</span><span class="p">()</span> <span class="nx">apps</span><span class="p">.</span><span class="nx">Interface</span>
+   <span class="nx">Batch</span><span class="p">()</span> <span class="nx">batch</span><span class="p">.</span><span class="nx">Interface</span>
+   <span class="nx">Core</span><span class="p">()</span> <span class="nx">core</span><span class="p">.</span><span class="nx">Interface</span>
+   <span class="o">...</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/interalinterface/factory_interfaces.go</span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>34
+35
+36
+37
+38</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">SharedInformerFactory</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">Start</span><span class="p">(</span><span class="nx">stopCh</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
+   <span class="nx">InformerFor</span><span class="p">(</span><span class="nx">obj</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">Object</span><span class="p">,</span> <span class="nx">newFunc</span> <span class="nx">NewInformerFunc</span><span class="p">)</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">SharedIndexInformer</span>
+ <span class="p">}</span>
+ <span class="kd">type</span> <span class="nx">NewInformerFunc</span> <span class="kd">func</span><span class="p">(</span><span class="nx">kubernetes</span><span class="p">.</span><span class="nx">Interface</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">SharedIndexInformer</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="factoryinformer">
+<h2>通过factory获取informer资源<a class="headerlink" href="#factoryinformer" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">github.com/gosources/demo-kubernetes/client-go/informer/informer/main.go</span><a class="headerlink" href="#id10" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>34</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nx">informer</span> <span class="o">:=</span> <span class="nx">sharedInformers</span><span class="p">.</span><span class="nx">Core</span><span class="p">().</span><span class="nx">V1</span><span class="p">().</span><span class="nx">Pods</span><span class="p">().</span><span class="nx">Informer</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>sharedInformers是informer的factory，所以它可以生成各种资源类型的Informer。上例就是生成Pod资源的Informer，还可以通过类似接口生成其他资源的Informer。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>注意这儿的Core().V1().Pods()分别是GVR(Group, Version, Resource)。所以接口SharedInformerFactory实现了所有的Group对应的方法，如Apps(), Batch(), Core()…。</p>
+</div>
+<p>我们再进入informer目录，看下目录结构:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd informer
+$ tree -L 2
+├── apps
+│   ├── interface.go
+│   ├── v1
+│   ├── v1beta1
+│   └── v1beta2
+├── batch
+│   ├── interface.go
+│   ├── v1
+│   ├── v1beta1
+│   └── v2alpha1
+├── core
+│   ├── interface.go
+│   └── v1
+... ...
+</pre></div>
+</div>
+<p>看目录就基本知道有哪些Group和Version。以app目录为例，再看下目录结构:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ./apps
+$ tree
+.
+├── interface.go
+├── v1
+│   ├── controllerrevision.go
+│   ├── daemonset.go
+│   ├── deployment.go
+│   ├── interface.go
+│   ├── replicaset.go
+│   └── statefulset.go
+├── v1beta1
+│   ├── controllerrevision.go
+│   ├── deployment.go
+│   ├── interface.go
+│   └── statefulset.go
+└── v1beta2
+    ├── controllerrevision.go
+    ├── daemonset.go
+    ├── deployment.go
+    ├── interface.go
+    ├── replicaset.go
+    └── statefulset.go
+</pre></div>
+</div>
+<p>其中每个Group目录下有一个interface.go文件，每一个子文件夹下的文件都是一个资源类型，文件名就是资源类型名。interface.go里面定义了一个Interface接口指定了这个Group下的接口方法，定义了一个group类来做具体的实现。如：</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/apps/interface.go</span><a class="headerlink" href="#id11" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>29
+30
+31
+32
+33
+34
+35
+36</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">Interface</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="c1">// V1 provides access to shared informers for resources in V1.</span>
+   <span class="nx">V1</span><span class="p">()</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">Interface</span>
+   <span class="c1">// V1beta1 provides access to shared informers for resources in V1beta1.</span>
+   <span class="nx">V1beta1</span><span class="p">()</span> <span class="nx">v1beta1</span><span class="p">.</span><span class="nx">Interface</span>
+   <span class="c1">// V1beta2 provides access to shared informers for resources in V1beta2.</span>
+   <span class="nx">V1beta2</span><span class="p">()</span> <span class="nx">v1beta2</span><span class="p">.</span><span class="nx">Interface</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/apps/interface.go</span><a class="headerlink" href="#id12" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>38
+39
+40
+41
+42</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">group</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">factory</span>          <span class="nx">internalinterfaces</span><span class="p">.</span><span class="nx">SharedInformerFactory</span>
+   <span class="nx">namespace</span>        <span class="kt">string</span>
+   <span class="nx">tweakListOptions</span> <span class="nx">internalinterfaces</span><span class="p">.</span><span class="nx">TweakListOptionsFunc</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>上面实例以app组为例，app.Interface接口实现了V1(), V1beta1(), V1beta2()方法。app.group类的则做具体的实现，如：</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/apps/interface.go</span><a class="headerlink" href="#id13" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>50
+51
+52</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">group</span><span class="p">)</span> <span class="nx">V1</span><span class="p">()</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">Interface</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">factory</span><span class="p">,</span> <span class="nx">g</span><span class="p">.</span><span class="nx">namespace</span><span class="p">,</span> <span class="nx">g</span><span class="p">.</span><span class="nx">tweakListOptions</span><span class="p">)</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>同理可以继续往下看，调用PodInformer接口的Informer()方法，得到一个cache.SharedIndexInformer类型的Informer对象：</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/core/v1/pod.go</span><a class="headerlink" href="#id14" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">PodInformer</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">Informer</span><span class="p">()</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">SharedIndexInformer</span>
+   <span class="nx">Lister</span><span class="p">()</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">PodLister</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/core/v1/pod.go</span><a class="headerlink" href="#id15" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>83
+84
+85</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">podInformer</span><span class="p">)</span> <span class="nx">Informer</span><span class="p">()</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">SharedIndexInformer</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">f</span><span class="p">.</span><span class="nx">factory</span><span class="p">.</span><span class="nx">InformerFor</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">corev1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">{},</span> <span class="nx">f</span><span class="p">.</span><span class="nx">defaultInformer</span><span class="p">)</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>最后得到的Infomer对象的实现podInformer：</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informers/core/v1/interface.go</span><a class="headerlink" href="#id16" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>118
+119
+120</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">version</span><span class="p">)</span> <span class="nx">Pods</span><span class="p">()</span> <span class="nx">PodInformer</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="o">&amp;</span><span class="nx">podInformer</span><span class="p">{</span><span class="nx">factory</span><span class="p">:</span> <span class="nx">v</span><span class="p">.</span><span class="nx">factory</span><span class="p">,</span> <span class="nx">namespace</span><span class="p">:</span> <span class="nx">v</span><span class="p">.</span><span class="nx">namespace</span><span class="p">,</span> <span class="nx">tweakListOptions</span><span class="p">:</span> <span class="nx">v</span><span class="p">.</span><span class="nx">tweakListOptions</span><span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="informer">
+<h2>Informer增加事件处理<a class="headerlink" href="#informer" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">github.com/gosources/demo-kubernetes/client-go/informer/informer/main.go</span><a class="headerlink" href="#id17" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nx">informer</span><span class="p">.</span><span class="nx">AddEventHandler</span><span class="p">(</span><span class="nx">cache</span><span class="p">.</span><span class="nx">ResourceEventHandlerFuncs</span><span class="p">{</span>
+   <span class="nx">AddFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">obj</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+   <span class="o">...</span>
+   <span class="p">},</span>
+   <span class="nx">UpdateFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">oldObj</span><span class="p">,</span> <span class="nx">newObj</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+   <span class="o">...</span>
+   <span class="p">},</span>
+   <span class="nx">DeleteFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">obj</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+   <span class="o">...</span>
+   <span class="p">},</span>
+ <span class="p">})</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>SharedIndexInformer包括两部分，一部分是index部分定义了索引部分，实现了AddIndexers和GetIndexer方法：</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/cache/shared_informer.go</span><a class="headerlink" href="#id18" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>66
+67
+68
+69
+70
+71</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">SharedIndexInformer</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">SharedInformer</span>
+   <span class="c1">// AddIndexers add indexers to the informer before it starts.</span>
+   <span class="nx">AddIndexers</span><span class="p">(</span><span class="nx">indexers</span> <span class="nx">Indexers</span><span class="p">)</span> <span class="kt">error</span>
+   <span class="nx">GetIndexer</span><span class="p">()</span> <span class="nx">Indexer</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>另一部分是SharedInformer接口定义的SharedInformer接口定义的Informer相关的方法，如：</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/cache/shared_informer.go</span><a class="headerlink" href="#id19" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>43
+44
+45
+46
+47
+48
+49
+50
+51</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">SharedInformer</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">AddEventHandler</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">ResourceEventHandler</span><span class="p">)</span>
+   <span class="nx">AddEventHandlerWithResyncPeriod</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">ResourceEventHandler</span><span class="p">,</span> <span class="nx">resyncPeriod</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span>
+   <span class="nx">GetStore</span><span class="p">()</span> <span class="nx">Store</span>
+   <span class="nx">GetController</span><span class="p">()</span> <span class="nx">Controller</span>
+   <span class="nx">Run</span><span class="p">(</span><span class="nx">stopCh</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
+   <span class="nx">HasSynced</span><span class="p">()</span> <span class="kt">bool</span>
+   <span class="nx">LastSyncResourceVersion</span><span class="p">()</span> <span class="kt">string</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>在上面的例子中，我们主要是实现AddEventHandler方法，由于本部分主要讲解决factory的实现，这块暂不做详细讲述，只需要知道增加了事件处理。</p>
+</div>
+<div class="section" id="id3">
+<h2>Factory运行<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">github.com/gosources/demo-kubernetes/client-go/informer/informer/main.go</span><a class="headerlink" href="#id20" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>52</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nx">sharedInformers</span><span class="p">.</span><span class="nx">Start</span><span class="p">(</span><span class="nx">stopCh</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>前面看到Run方法来实现SharedInformer接口的运行，factory执行start方法时，就是把所有的sharedInformer都很行下Run()方法，我们看下它的主要实现：</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/informer/factory.go</span><a class="headerlink" href="#id21" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>127
+128
+129
+130
+131
+132
+133
+134
+135
+136</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">sharedInformerFactory</span><span class="p">)</span> <span class="nx">Start</span><span class="p">(</span><span class="nx">stopCh</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span> <span class="p">{</span>
+ <span class="nx">f</span><span class="p">.</span><span class="nx">lock</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
+ <span class="k">defer</span> <span class="nx">f</span><span class="p">.</span><span class="nx">lock</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
+
+ <span class="k">for</span> <span class="nx">informerType</span><span class="p">,</span> <span class="nx">informer</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">f</span><span class="p">.</span><span class="nx">informers</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">!</span><span class="nx">f</span><span class="p">.</span><span class="nx">startedInformers</span><span class="p">[</span><span class="nx">informerType</span><span class="p">]</span> <span class="p">{</span>
+     <span class="k">go</span> <span class="nx">informer</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">stopCh</span><span class="p">)</span>
+     <span class="nx">f</span><span class="p">.</span><span class="nx">startedInformers</span><span class="p">[</span><span class="nx">informerType</span><span class="p">]</span> <span class="p">=</span> <span class="kc">true</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>到此，整个facotry就基本运行完毕。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../func.html" class="btn btn-neutral float-right" title="函数相关" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../usage.html" class="btn btn-neutral" title="使用实例" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, 赵卫国.
+
+    </p>
+  </div>
+  <div>备案号 <a href="http://www.beian.miit.gov.cn">京ICP备16018553号</a></div><div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a></div>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'v1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/language_data.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

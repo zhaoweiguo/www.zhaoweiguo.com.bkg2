@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tool2 &mdash; Kubernetes源码分析 v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Request" href="type_request.html" />
+    <link rel="prev" title="tool" href="type_config_tool.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+<script>
+// 百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?042289284b8eb33866001347a3e0b129";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-178653440-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-178653440-3');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Kubernetes源码分析
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubernetes.html">kubernates项目</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../kubernetes.html#id1">代码前分析</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../client-go.html">client-go项目</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../preface.html">代码前分析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id2">代码量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id3">目录结构</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../client.html">Client对象</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../usages/out-of-cluster-client-configuration.html">实例out-of-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/in-cluster-client-configuration.html">实例in-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/create-update-delete-deployment.html">实例create-update-delete-deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/demo-rest-client.html">实例: rest client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/demo-discovery-client.html">实例: discovery client</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../type.html">类型</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="type_clientset.html">type Clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config.html">type config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config_tls.html">type config tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config_tool.html">tool</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tool2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_request.html">Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_request_result.html">type request Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_restclient.html">type2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_transport.html">type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../func.html">函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_clientset.html">func clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_config.html">func config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_gen.html">func gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_request.html">func request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_restclient.html">func RESTClient</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture.html">架构设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../informer.html">informer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/preface.html#id2">3大核心组件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/usages/factory.html">工厂模式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/func.html">函数相关</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_gen.html">gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_factory.html">informers.NewSharedInformerFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html">coreV1.NewFilteredPodInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newsharedindexinformer">cache.NewSharedIndexInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newindexer">cache.NewIndexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newprocesslistener">cache.newProcessListener</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_run.html">informer启动</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/informer_factory.html">Informer Factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_controller.html">Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_fifo.html">FIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_fifo_Delta.html">DeltaFIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_indexer.html">Indexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_informer.html">cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_processor.html">processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_reflector.html">Reflector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_store.html">type cache store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_informerFactory.html">type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_Lister.html">Lister</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubewatch.html">kubewatch项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">参考文章</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Kubernetes源码分析</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../client-go.html">client-go项目</a> &raquo;</li>
+        
+          <li><a href="../../client.html">Client对象</a> &raquo;</li>
+        
+          <li><a href="../type.html">类型</a> &raquo;</li>
+        
+      <li>tool2</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tool2">
+<h1>tool2<a class="headerlink" href="#tool2" title="Permalink to this headline">¶</a></h1>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/clientcmd/merged_client_builder.go</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>47
+48
+49
+50</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">InClusterConfig</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">ClientConfig</span>
+   <span class="nx">Possible</span><span class="p">()</span> <span class="kt">bool</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/clientcmd/client_config.go</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1">// ClientConfig is used to make it easy to get an api server client</span>
+ <span class="kd">type</span> <span class="nx">ClientConfig</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="c1">// RawConfig returns the merged result of all overrides</span>
+   <span class="nx">RawConfig</span><span class="p">()</span> <span class="p">(</span><span class="nx">clientcmdapi</span><span class="p">.</span><span class="nx">Config</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="c1">// ClientConfig returns a complete client config</span>
+   <span class="nx">ClientConfig</span><span class="p">()</span> <span class="p">(</span><span class="o">*</span><span class="nx">restclient</span><span class="p">.</span><span class="nx">Config</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="c1">// Namespace returns the namespace resulting from the merged</span>
+   <span class="c1">// result of all overrides and a boolean indicating if it was</span>
+   <span class="c1">// overridden</span>
+   <span class="nx">Namespace</span><span class="p">()</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="c1">// ConfigAccess returns the rules for loading/persisting the config.</span>
+   <span class="nx">ConfigAccess</span><span class="p">()</span> <span class="nx">ConfigAccess</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/tools/clientcmd/merged_client_builder.go</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1">// DeferredLoadingClientConfig is a ClientConfig interface that is backed by a client config loader.</span>
+ <span class="c1">// It is used in cases where the loading rules may change after you&#39;ve instantiated them</span>
+ <span class="c1">//    and you want to be sure that the most recent rules are used.</span>
+ <span class="c1">// This is useful in cases where you bind flags to loading rule parameters</span>
+ <span class="c1">// before the parse happens and you want your calling code to be ignorant of</span>
+ <span class="c1">// how the values are being mutated to avoid</span>
+ <span class="c1">// passing extraneous information down a call stack</span>
+ <span class="kd">type</span> <span class="nx">DeferredLoadingClientConfig</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">loader</span>         <span class="nx">ClientConfigLoader</span>
+   <span class="nx">overrides</span>      <span class="o">*</span><span class="nx">ConfigOverrides</span>
+   <span class="nx">fallbackReader</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span>
+
+   <span class="nx">clientConfig</span> <span class="nx">ClientConfig</span>
+   <span class="nx">loadingLock</span>  <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+
+   <span class="c1">// provided for testing</span>
+   <span class="nx">icc</span> <span class="nx">InClusterConfig</span>
+ <span class="p">}</span>
+
+ <span class="kd">func</span> <span class="p">(</span><span class="nx">config</span> <span class="o">*</span><span class="nx">DeferredLoadingClientConfig</span><span class="p">)</span> <span class="nx">ClientConfig</span><span class="p">()</span> <span class="p">(</span><span class="o">*</span><span class="nx">restclient</span><span class="p">.</span><span class="nx">Config</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">mergedClientConfig</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">createClientConfig</span><span class="p">()</span>
+
+   <span class="c1">// load the configuration and return on non-empty errors and if the</span>
+   <span class="c1">// content differs from the default config</span>
+   <span class="nx">mergedConfig</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mergedClientConfig</span><span class="p">.</span><span class="nx">ClientConfig</span><span class="p">()</span>
+   <span class="k">switch</span> <span class="p">{</span>
+   <span class="k">case</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">:</span>
+     <span class="k">if</span> <span class="p">!</span><span class="nx">IsEmptyConfig</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+       <span class="c1">// return on any error except empty config</span>
+       <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+     <span class="p">}</span>
+   <span class="k">case</span> <span class="nx">mergedConfig</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">:</span>
+     <span class="c1">// the configuration is valid, but if this is equal to the defaults we should try</span>
+     <span class="c1">// in-cluster configuration</span>
+     <span class="k">if</span> <span class="p">!</span><span class="nx">config</span><span class="p">.</span><span class="nx">loader</span><span class="p">.</span><span class="nx">IsDefaultConfig</span><span class="p">(</span><span class="nx">mergedConfig</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="nx">mergedConfig</span><span class="p">,</span> <span class="kc">nil</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// check for in-cluster configuration and use it</span>
+   <span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">icc</span><span class="p">.</span><span class="nx">Possible</span><span class="p">()</span> <span class="p">{</span>
+     <span class="nx">klog</span><span class="p">.</span><span class="nx">V</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;Using in-cluster configuration&quot;</span><span class="p">)</span>
+     <span class="k">return</span> <span class="nx">config</span><span class="p">.</span><span class="nx">icc</span><span class="p">.</span><span class="nx">ClientConfig</span><span class="p">()</span>
+   <span class="p">}</span>
+
+   <span class="c1">// return the result of the merged client config</span>
+   <span class="k">return</span> <span class="nx">mergedConfig</span><span class="p">,</span> <span class="nx">err</span>
+ <span class="p">}</span>
+
+
+
+
+
+
+
+
+
+
+
+ <span class="kd">type</span> <span class="nx">ConfigOverrides</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">AuthInfo</span> <span class="nx">clientcmdapi</span><span class="p">.</span><span class="nx">AuthInfo</span>
+   <span class="c1">// ClusterDefaults are applied before the configured cluster info is loaded.</span>
+   <span class="nx">ClusterDefaults</span> <span class="nx">clientcmdapi</span><span class="p">.</span><span class="nx">Cluster</span>
+   <span class="nx">ClusterInfo</span>     <span class="nx">clientcmdapi</span><span class="p">.</span><span class="nx">Cluster</span>
+   <span class="nx">Context</span>         <span class="nx">clientcmdapi</span><span class="p">.</span><span class="nx">Context</span>
+   <span class="nx">CurrentContext</span>  <span class="kt">string</span>
+   <span class="nx">Timeout</span>         <span class="kt">string</span>
+ <span class="p">}</span>
+
+ <span class="kd">type</span> <span class="nx">ClientConfigLoadingRules</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">ExplicitPath</span> <span class="kt">string</span>
+   <span class="nx">Precedence</span>   <span class="p">[]</span><span class="kt">string</span>
+
+   <span class="c1">// MigrationRules is a map of destination files to source files.</span>
+   <span class="c1">// If a destination file is not present, then the source file is checked.</span>
+   <span class="c1">// If the source file is present, then it is copied to the destination file</span>
+   <span class="c1">// BEFORE any further loading happens.</span>
+   <span class="nx">MigrationRules</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+
+   <span class="c1">// DoNotResolvePaths indicates whether or not to resolve paths</span>
+   <span class="c1">// with respect to the originating files.</span>
+   <span class="c1">// This is phrased as a negative so</span>
+   <span class="c1">// that a default object that doesn&#39;t set this will usually get the behavior it wants.</span>
+   <span class="nx">DoNotResolvePaths</span> <span class="kt">bool</span>
+
+   <span class="c1">// DefaultClientConfig is an optional field indicating</span>
+   <span class="c1">// what rules to use to calculate a default configuration.</span>
+   <span class="c1">// This should match the overrides passed in to ClientConfig loader.</span>
+   <span class="nx">DefaultClientConfig</span> <span class="nx">ClientConfig</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="type_request.html" class="btn btn-neutral float-right" title="Request" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="type_config_tool.html" class="btn btn-neutral" title="tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, 赵卫国.
+
+    </p>
+  </div>
+  <div>备案号 <a href="http://www.beian.miit.gov.cn">京ICP备16018553号</a></div><div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a></div>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'v1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/language_data.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

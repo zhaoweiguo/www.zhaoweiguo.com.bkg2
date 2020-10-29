@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>type Clientset &mdash; Kubernetes源码分析 v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="type config" href="type_config.html" />
+    <link rel="prev" title="类型" href="../type.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+<script>
+// 百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?042289284b8eb33866001347a3e0b129";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-178653440-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-178653440-3');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Kubernetes源码分析
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubernetes.html">kubernates项目</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../kubernetes.html#id1">代码前分析</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../client-go.html">client-go项目</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../preface.html">代码前分析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id2">代码量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../preface.html#id3">目录结构</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../client.html">Client对象</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../usages/out-of-cluster-client-configuration.html">实例out-of-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/in-cluster-client-configuration.html">实例in-cluster-client-configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/create-update-delete-deployment.html">实例create-update-delete-deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/demo-rest-client.html">实例: rest client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usages/demo-discovery-client.html">实例: discovery client</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../type.html">类型</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">type Clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config.html">type config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config_tls.html">type config tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config_tool.html">tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_config_tool_2.html">tool2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_request.html">Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_request_result.html">type request Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_restclient.html">type2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="type_transport.html">type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../func.html">函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_clientset.html">func clientset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_config.html">func config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_gen.html">func gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_request.html">func request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../func/func_restclient.html">func RESTClient</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture.html">架构设计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../informer.html">informer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/preface.html#id2">3大核心组件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/usage.html">使用实例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/usages/factory.html">工厂模式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/func.html">函数相关</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_gen.html">gen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_factory.html">informers.NewSharedInformerFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html">coreV1.NewFilteredPodInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newsharedindexinformer">cache.NewSharedIndexInformer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newindexer">cache.NewIndexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_informer.html#cache-newprocesslistener">cache.newProcessListener</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/func/func_run.html">informer启动</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../informers/type.html">类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/informer_factory.html">Informer Factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_controller.html">Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_fifo.html">FIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_fifo_Delta.html">DeltaFIFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_indexer.html">Indexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_informer.html">cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_processor.html">processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_reflector.html">Reflector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_cache_store.html">type cache store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_informerFactory.html">type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../informers/type/type_Lister.html">Lister</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kubewatch.html">kubewatch项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">参考文章</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Kubernetes源码分析</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../client-go.html">client-go项目</a> &raquo;</li>
+        
+          <li><a href="../../client.html">Client对象</a> &raquo;</li>
+        
+          <li><a href="../type.html">类型</a> &raquo;</li>
+        
+      <li>type Clientset</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="type-clientset">
+<h1>type Clientset<a class="headerlink" href="#type-clientset" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="clientset">
+<h2>Clientset<a class="headerlink" href="#clientset" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/clientset.go</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">Interface</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">Discovery</span><span class="p">()</span> <span class="nx">discovery</span><span class="p">.</span><span class="nx">DiscoveryInterface</span>
+   <span class="nx">AppsV1</span><span class="p">()</span> <span class="nx">appsv1</span><span class="p">.</span><span class="nx">AppsV1Interface</span>
+   <span class="nx">AppsV1beta1</span><span class="p">()</span> <span class="nx">appsv1beta1</span><span class="p">.</span><span class="nx">AppsV1beta1Interface</span>
+   <span class="nx">AppsV1beta2</span><span class="p">()</span> <span class="nx">appsv1beta2</span><span class="p">.</span><span class="nx">AppsV1beta2Interface</span>
+   <span class="nx">BatchV1</span><span class="p">()</span> <span class="nx">batchv1</span><span class="p">.</span><span class="nx">BatchV1Interface</span>
+   <span class="nx">BatchV1beta1</span><span class="p">()</span> <span class="nx">batchv1beta1</span><span class="p">.</span><span class="nx">BatchV1beta1Interface</span>
+   <span class="nx">BatchV2alpha1</span><span class="p">()</span> <span class="nx">batchv2alpha1</span><span class="p">.</span><span class="nx">BatchV2alpha1Interface</span>
+   <span class="nx">CoreV1</span><span class="p">()</span> <span class="nx">corev1</span><span class="p">.</span><span class="nx">CoreV1Interface</span>
+   <span class="o">...</span> <span class="o">...</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/clientset.go</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">Clientset</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="o">*</span><span class="nx">discovery</span><span class="p">.</span><span class="nx">DiscoveryClient</span>
+   <span class="nx">appsV1</span>                       <span class="o">*</span><span class="nx">appsv1</span><span class="p">.</span><span class="nx">AppsV1Client</span>
+   <span class="nx">appsV1beta1</span>                  <span class="o">*</span><span class="nx">appsv1beta1</span><span class="p">.</span><span class="nx">AppsV1beta1Client</span>
+   <span class="nx">appsV1beta2</span>                  <span class="o">*</span><span class="nx">appsv1beta2</span><span class="p">.</span><span class="nx">AppsV1beta2Client</span>
+   <span class="nx">batchV1</span>                      <span class="o">*</span><span class="nx">batchv1</span><span class="p">.</span><span class="nx">BatchV1Client</span>
+   <span class="nx">batchV1beta1</span>                 <span class="o">*</span><span class="nx">batchv1beta1</span><span class="p">.</span><span class="nx">BatchV1beta1Client</span>
+   <span class="nx">batchV2alpha1</span>                <span class="o">*</span><span class="nx">batchv2alpha1</span><span class="p">.</span><span class="nx">BatchV2alpha1Client</span>
+   <span class="nx">coreV1</span>                       <span class="o">*</span><span class="nx">corev1</span><span class="p">.</span><span class="nx">CoreV1Client</span>
+   <span class="o">...</span> <span class="o">...</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/clientset.go</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>236
+237
+238</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Clientset</span><span class="p">)</span> <span class="nx">CoreV1</span><span class="p">()</span> <span class="nx">corev1</span><span class="p">.</span><span class="nx">CoreV1Interface</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">coreV1</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="corev1client">
+<h2>CoreV1Client<a class="headerlink" href="#corev1client" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/typed/core/v1/core_client.go</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">CoreV1Interface</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">RESTClient</span><span class="p">()</span> <span class="nx">rest</span><span class="p">.</span><span class="nx">Interface</span>
+   <span class="nx">ComponentStatusesGetter</span>
+   <span class="nx">ConfigMapsGetter</span>
+   <span class="nx">EndpointsGetter</span>
+   <span class="nx">EventsGetter</span>
+   <span class="nx">LimitRangesGetter</span>
+   <span class="nx">NamespacesGetter</span>
+   <span class="nx">NodesGetter</span>
+   <span class="nx">PersistentVolumesGetter</span>
+   <span class="nx">PersistentVolumeClaimsGetter</span>
+   <span class="nx">PodsGetter</span>
+   <span class="nx">PodTemplatesGetter</span>
+   <span class="nx">ReplicationControllersGetter</span>
+   <span class="nx">ResourceQuotasGetter</span>
+   <span class="nx">SecretsGetter</span>
+   <span class="nx">ServicesGetter</span>
+   <span class="nx">ServiceAccountsGetter</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/typed/core/v1/pod.go</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>105
+106
+107</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">PodsGetter</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">Pods</span><span class="p">(</span><span class="nx">namespace</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">PodInterface</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/typed/core/v1/core_client.go</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>49
+50
+51</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">CoreV1Client</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">restClient</span> <span class="nx">rest</span><span class="p">.</span><span class="nx">Interface</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/typed/core/v1/core_client.go</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">CoreV1Client</span><span class="p">)</span> <span class="nx">Pods</span><span class="p">(</span><span class="nx">namespace</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">PodInterface</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="o">&amp;</span><span class="nx">pods</span><span class="p">{</span>
+     <span class="nx">client</span><span class="p">:</span> <span class="nx">c</span><span class="p">.</span><span class="nx">RESTClient</span><span class="p">(),</span>
+     <span class="nx">ns</span><span class="p">:</span>     <span class="nx">namespace</span><span class="p">,</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+ <span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">CoreV1Client</span><span class="p">)</span> <span class="nx">RESTClient</span><span class="p">()</span> <span class="nx">rest</span><span class="p">.</span><span class="nx">Interface</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="nx">c</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+     <span class="k">return</span> <span class="kc">nil</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">restClient</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="pods">
+<h2>pods<a class="headerlink" href="#pods" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/typed/core/v1/pod.go</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">PodInterface</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nx">Create</span><span class="p">(</span><span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="nx">Update</span><span class="p">(</span><span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="nx">UpdateStatus</span><span class="p">(</span><span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="nx">Delete</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">options</span> <span class="o">*</span><span class="nx">metav1</span><span class="p">.</span><span class="nx">DeleteOptions</span><span class="p">)</span> <span class="kt">error</span>
+   <span class="nx">DeleteCollection</span><span class="p">(</span><span class="nx">options</span> <span class="o">*</span><span class="nx">metav1</span><span class="p">.</span><span class="nx">DeleteOptions</span><span class="p">,</span> <span class="nx">listOptions</span> <span class="nx">metav1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">)</span> <span class="kt">error</span>
+   <span class="nx">Get</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">options</span> <span class="nx">metav1</span><span class="p">.</span><span class="nx">GetOptions</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="nx">List</span><span class="p">(</span><span class="nx">opts</span> <span class="nx">metav1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">PodList</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="nx">Watch</span><span class="p">(</span><span class="nx">opts</span> <span class="nx">metav1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">)</span> <span class="p">(</span><span class="nx">watch</span><span class="p">.</span><span class="nx">Interface</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="nx">Patch</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pt</span> <span class="nx">types</span><span class="p">.</span><span class="nx">PatchType</span><span class="p">,</span> <span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">subresources</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">result</span> <span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+   <span class="nx">PodExpansion</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/typed/core/v1/pod.go</span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>53
+54
+55
+56</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">pods</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">client</span> <span class="nx">rest</span><span class="p">.</span><span class="nx">Interface</span>
+   <span class="nx">ns</span>     <span class="kt">string</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/typed/core/v1/pod.go</span><a class="headerlink" href="#id10" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">pods</span><span class="p">)</span> <span class="nx">List</span><span class="p">(</span><span class="nx">opts</span> <span class="nx">metav1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">)</span> <span class="p">(</span><span class="nx">result</span> <span class="o">*</span><span class="nx">v1</span><span class="p">.</span><span class="nx">PodList</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">timeout</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+
+   <span class="nx">result</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">v1</span><span class="p">.</span><span class="nx">PodList</span><span class="p">{}</span>
+   <span class="nx">err</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">Get</span><span class="p">().</span>   <span class="c1">// 返回Request类型</span>
+     <span class="nx">Namespace</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">ns</span><span class="p">).</span>
+     <span class="nx">Resource</span><span class="p">(</span><span class="s">&quot;pods&quot;</span><span class="p">).</span>
+     <span class="nx">VersionedParams</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">opts</span><span class="p">,</span> <span class="nx">scheme</span><span class="p">.</span><span class="nx">ParameterCodec</span><span class="p">).</span>
+     <span class="nx">Timeout</span><span class="p">(</span><span class="nx">timeout</span><span class="p">).</span>     <span class="c1">// 设置Request类型的几个参数</span>
+     <span class="nx">Do</span><span class="p">().</span>                 <span class="c1">// 执行http请求</span>
+     <span class="nx">Into</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>          <span class="c1">// 把请求结果赋值到result</span>
+   <span class="k">return</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">k8s.io/client-go/kubernetes/core/v1/type.go</span><a class="headerlink" href="#id11" title="Permalink to this code">¶</a></div>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kd">type</span> <span class="nx">PodList</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">metav1</span><span class="p">.</span><span class="nx">TypeMeta</span> <span class="s">`json:&quot;,inline&quot;`</span>
+   <span class="c1">// Standard list metadata.</span>
+   <span class="c1">// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds</span>
+   <span class="c1">// +optional</span>
+   <span class="nx">metav1</span><span class="p">.</span><span class="nx">ListMeta</span> <span class="s">`json:&quot;metadata,omitempty&quot; protobuf:&quot;bytes,1,opt,name=metadata&quot;`</span>
+
+   <span class="c1">// List of pods.</span>
+   <span class="c1">// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md</span>
+   <span class="nx">Items</span> <span class="p">[]</span><span class="nx">Pod</span> <span class="s">`json:&quot;items&quot; protobuf:&quot;bytes,2,rep,name=items&quot;`</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="type_config.html" class="btn btn-neutral float-right" title="type config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../type.html" class="btn btn-neutral" title="类型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, 赵卫国.
+
+    </p>
+  </div>
+  <div>备案号 <a href="http://www.beian.miit.gov.cn">京ICP备16018553号</a></div><div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a></div>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'v1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/language_data.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
