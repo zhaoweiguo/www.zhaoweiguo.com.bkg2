@@ -1,7 +1,7 @@
 实例一
 ######
 
-
+test:
 
 .. uml:: ./demo1.puml
 
