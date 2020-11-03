@@ -17,13 +17,24 @@ app.config["threaded"] = True
 
 @app.route('/', methods=['POST'])
 def hook():
-    if request.method == 'POST':
-        data = request.get_data()
-        json_data = json.loads(data.decode("utf-8"))
-        branch = json_data["branch"]
-        print(branch)
+    data = request.get_data()
+    json_data = json.loads(data.decode("utf-8"))
+    branch = json_data["branch"]
+    print(branch)
+    force = json_data["force"]
+    path = json_data["path"]
+    if path=="":
+        path = "/var/www/zhaoweiguo.com/www.zhaoweiguo.com"
+    if force==True:
+        force = True
 
-        return "ok"
+    subprocess.Popen("git pull origin master &> /tmp/abc.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
+    if force:
+        subprocess.Popen("make clean && make &> /tmp/abc.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
+
+
+
+    return "ok"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7777, threaded=True)
