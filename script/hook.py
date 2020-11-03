@@ -35,10 +35,13 @@ def hook():
     print(actions)
 
     if 'pull' in actions:
+        print("[run]pull")
         subprocess.Popen("git pull origin master &>> /tmp/hook.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
     if 'make clean' in actions:
+        print("[run]make clean")
         subprocess.Popen("make clean &>> /tmp/hook.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
     if 'make' in actions:
+        print("[run]make")
         subprocess.Popen("make &>> /tmp/hook.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
 
     return "ok"
