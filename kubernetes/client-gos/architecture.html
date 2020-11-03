@@ -250,7 +250,35 @@ var _hmt = _hmt || [];
             
   <div class="section" id="id1">
 <h1>架构设计<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p class="plantuml">
+<img src="../_images/plantuml-835f2340651afe16ce74eb93908ef203d993af0e.png" alt="&#64;startmindmap
+
+* Client
+** clientSet
+*** config:=clientcmd.BuildConfigFromFlags(&quot;&quot;, kubeconfigPath)
+*** client:=kubernetes.NewForConfig(config)
+** discoveryClient
+*** config:=clientcmd.BuildConfigFromFlags(&quot;&quot;, kubeconfigPath)
+*** client:=discovery.NewDiscoveryClientForConfig(config)
+** restClient
+*** config:=rest.InClusterConfig()
+*** client:=kubernetes.NewForConfig(config)
+
+&#64;endmindmap"/>
+</p>
 <p>hih</p>
+<p class="plantuml">
+<img src="../_images/plantuml-5ec33eb8a00cb1bdaabb0aca4b76b2e93681348a.png" alt="&#64;startmindmap
+
+* client-go
+** golang.org/x/time/rate
+*** todo
+** k8s.io/apimachinery
+*** k8s.io/apimachinery/pkg/util/clock
+*** clock.RealClock{}
+
+&#64;endmindmap"/>
+</p>
 </div>
 
 
