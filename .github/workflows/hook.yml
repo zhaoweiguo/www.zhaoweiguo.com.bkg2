@@ -1,0 +1,22 @@
+on: [push]
+
+jobs:
+  build:
+    name: Hook
+    runs-on: ubuntu-latest
+    steps:
+    - name: Start
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+    - name: Hook
+      uses: jasongitmail/fast-webhook@v1
+      with:
+        url: ${{ secrets.WEBHOOK_URL }}
+        json: '{"branch": "master"}'
+
+
+
+
+
