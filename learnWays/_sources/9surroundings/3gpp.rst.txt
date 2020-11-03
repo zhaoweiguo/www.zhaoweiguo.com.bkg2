@@ -1,0 +1,15 @@
+3gpp
+####
+
+* 3GPP 的全名，叫做 3rd Generation Partnership Project，也就是第三代合作伙伴计划
+
+
+.. uml:: ./3gpp.puml
+
+
+
+
+参考
+====
+
+* 3GPP 是干什么的？详解 3GPP 组织的历史，通信行业必读: http://www.openpcba.com/web/contents/get?id=3397&tid=15

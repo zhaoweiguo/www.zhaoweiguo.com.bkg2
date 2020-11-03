@@ -17,6 +17,7 @@ Welcome to Architecture's documentation!
    7design
    8psychology
    9brief
+   9surrounding
 
 Indices and tables
 ==================
