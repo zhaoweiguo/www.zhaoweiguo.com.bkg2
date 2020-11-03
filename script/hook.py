@@ -31,12 +31,15 @@ def hook():
     path = json_data["path"]
     if path=="":
         path = "/var/www/zhaoweiguo.com/www.zhaoweiguo.com"
-    if force==True:
-        force = True
     print(path)
     print(actions)
 
-    subprocess.Popen("git pull origin master &> /tmp/abc.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
+    if 'pull' in actions:
+        subprocess.Popen("git pull origin master &>> /tmp/hook.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
+    if 'make clean' in actions:
+        subprocess.Popen("make clean &>> /tmp/hook.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
+    if 'make' in actions:
+        subprocess.Popen("make &>> /tmp/hook.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
 
     return "ok"
 
