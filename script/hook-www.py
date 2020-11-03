@@ -15,24 +15,28 @@ app.config["threaded"] = True
 
 #socketio = SocketIO(app)
 
+# 实例：
+# {
+#    "path":"/var/www/zhaoweiguo.com/www.zhaoweiguo.com", 
+#    "branch": "master", 
+#    "actions": [pull, make, make clean]
+#}
 @app.route('/', methods=['POST'])
 def hook():
     data = request.get_data()
     json_data = json.loads(data.decode("utf-8"))
     branch = json_data["branch"]
     print(branch)
-    force = json_data["force"]
+    actions = json_data["actions"]
     path = json_data["path"]
     if path=="":
         path = "/var/www/zhaoweiguo.com/www.zhaoweiguo.com"
     if force==True:
         force = True
+    print(path)
+    print(actions)
 
     subprocess.Popen("git pull origin master &> /tmp/abc.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
-    if force:
-        subprocess.Popen("make clean && make &> /tmp/abc.log &", cwd=path, shell=True, stdout=subprocess.PIPE).communicate()
-
-
 
     return "ok"
 
