@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>架构图 &mdash; 学习方法 v1.0 documentation</title>
+  <title>加密相关 &mdash; 学习方法 v1.0 documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="软件架构——C4模型" href="architecture-c4-model.html" />
-    <link rel="prev" title="数据分析" href="data-analysis.html" /> 
+    <link rel="next" title="云原生相关" href="../4cloudnative.html" />
+    <link rel="prev" title="编译原理" href="compiler.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -96,13 +96,13 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../3tech.html">技术相关</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="data-analysis.html">数据分析</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">架构图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture-diagram.html">架构图</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture-c4-model.html">软件架构——C4模型</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="architecture-c4-model.html#id1">参考</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="compiler.html">编译原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="encrypts.html">加密相关</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">加密相关</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../4cloudnative.html">云原生相关</a><ul>
@@ -194,13 +194,13 @@
         
           <li><a href="../3tech.html">技术相关</a> &raquo;</li>
         
-      <li>架构图</li>
+      <li>加密相关</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/3techs/architecture-diagram.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/3techs/encrypts.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -214,70 +214,198 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>架构图<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>加密相关<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p class="plantuml">
-<object data="../_images/plantuml-71936d9bebcc3fb1214016428e3f149b47879bc4.svg" type="image/svg+xml" style="width:865px;height:1522px;">
-<img src="../_images/plantuml-71936d9bebcc3fb1214016428e3f149b47879bc4.png" alt="&#64;startmindmap
+<object data="../_images/plantuml-6f45b7cd407c3f46e777eabe6e81b03c2e6a3736.svg" type="image/svg+xml" style="width:934px;height:5515px;">
+<img src="../_images/plantuml-6f45b7cd407c3f46e777eabe6e81b03c2e6a3736.png" alt="&#64;startmindmap
+* 加密
+** 对称加密(Symmetric-key Cryptography)
+*** AES
+**** 支持三种长度的密钥:128位，192位，256位
+**** AES128，AES192，AES256
+**** 填充方式
+***** NoPadding
+***** PKCS5Padding（默认）
+***** ISO10126Padding
+**** 工作模式
+***** CBC、ECB、CTR、CFB、OFB
 
-* 架构图
-** 定义
-*** 为了抽象地表示软件系统的整体轮廓
-*** 和各个组件之间的相互关系和约束边界
-*** 以及软件系统的物理部署
-*** 和软件系统的演进方向
-*** 的整体视图
-
-
-** 架构图的作用
-*** 解决沟通障碍
-*** 达成共识
-*** 减少歧义
-
-
-** 架构图分类
-*** Scene View: 场景视图
-**** 通常由『用例图』表示
-**** 用于描述系统的参与者与功能用例间的关系
-**** 反映系统的最终需求和交互设计
-
-*** Logic View: 逻辑视图
-**** 用于描述系统软件功能拆解后的组件关系
-**** 组件约束和边界，反映系统整体组成与系统如何构建的过程
-**** 通常由UML的『组件图』和『类图』来表示
-
-*** Physical View: 物理视图
-**** 用于描述系统软件到物理硬件的映射关系
-**** 反映出系统的组件是如何部署到一组可计算机器节点上
-**** 用于指导软件系统的部署实施过程
-
-*** Workflow/Process Flow: 处理流程图
-**** 用于描述系统软件组件之间的通信时序
-**** 数据的输入输出，反映系统的功能流程与数据流程
-**** 通常由『时序图』和『流程图』表示
-
-*** Network Structure: 网络拓卜图
-*** Development Diagram: 开发图
-**** 用于描述系统的模块划分和组成，以及细化到内部包的组成设计
-**** 服务于开发人员，反映系统开发实施过程
-
-** 好的架构图
-*** 画架构图之前
-**** 首先应该要明确其受众
-**** 再想清楚要给他们传递什么信息
-*** 方法
-**** 应该根据受众的不同
-**** 传递的信息的不同
-**** 用图准确地表达出来
-*** 好不好的直接标准
-**** 受众有没有准确接收到想传递的信息
+*** DES
+**** 已经被淘汰
+*** RC4
+**** 不建议使用
+*** 3DES
+**** 不建议使用
 
 
+** 非对称加密(Public-key Cryptography)
+*** 简介
+**** 密钥有这么一个特性：通过公钥很难计算得到私钥
+**** 又称：公钥基础结构，又称 PKI
+*** RSA
+**** 数学基础
+***** 欧拉公式
+***** 费马小定理
+***** 中国剩余定理
+**** 简介
+***** 1977 年
+***** 作者
+****** 麻省理工学院
+****** 三位数学家Rivest、Shamir 和 Adleman
+****** 罗纳德・李维斯特（Ron Rivest）
+****** 阿迪・萨莫尔（Adi Shamir）
+****** 伦纳德・阿德曼（Leonard Adleman）
+***** 密钥交换算法
+**** 说明
+***** 对极大整数做因数分解的难度决定了RSA算法的可靠性
+***** 第一个能同时用于加密和数字签名的算法
+***** 速度是对应同样安全级别的对称密码算法的1/1000左右
+**** 缺点
+***** 前向不安全
+****** 私钥参与了密钥交换
+****** 安全性取决于私钥是否安全保存
 
+*** DH
+**** 简介
+***** 1976 年
+***** 作者
+****** DH 是 Diffie-Hellman 的首字母缩写
+****** Whitfield Diffie 与 Martin Hellman
+****** 开创了公钥密码学的先河
+***** 密钥协商协议
+***** 离散对数系统
+**** 理论
+***** 基于椭圆曲线的离散对数问题（ECDLP）
+**** 效率
+***** ECC 能够比 RSA 提供更高的安全性
+***** 160bit的椭圆曲线密钥和 1024bit的 RSA 密钥的安全性相当
+***** 越小的密钥在速度、效率、带宽、存储上有着许多优势
+
+*** DHE
+**** 简介
+***** 模幂运算
+***** 私钥不参与密钥的协商
+
+*** ECC
+**** 简介
+***** 1985 年
+***** 作者
+****** Neal Koblitz 和 Victor Miller
+
+*** ECDHE
+**** 简介
+***** 点乘运算
+***** 前向安全（forward secrity）
+***** E 代表着「短暂的」，是指交换的密钥是暂时的动态的
+***** 使用离散对数问题来解决秘钥协商的难题
+***** DH 是 Diffie-Hellman
+
+*** ECDH
+**** 简介
+***** 前向不安全
+***** 密钥协商协议
+***** 已经被 OpenSSL 废弃
+**** 说明
+***** 是密钥协商算法，而不是加解密算法
+
+
+
+** 摘要算法
+*** md5
+*** sha256
+
+
+** 签名算法
+*** DSA
+*** ECDSA
+**** 1999 年成为 ANSI 标准
+**** 2000 年成为 IEEE 和 NIST 标准
+**** DSA 算法的一个变体
+**** ECC 与 DSA 的结合
+**** ECDSA 签名算法的输入 是 数据的哈希值，而不是数据的本身
+
+
+** Cipher Suites
+*** 默认项
+**** 秘钥交换算法：RSA
+**** 签名算法：RSA
+**** 模式：CBC
+*** authentication (认证) 算法
+**** RSA/DSA/ECDSA 3 种
+*** encryption加密算法
+**** 主流趋势是使用 aes
+**** RC4（不建议使用）
+**** 3DES（不建议使用）
+**** DES(已经被淘汰)
+*** message authentication code 算法
+**** 消息认证码 简称 MAC
+**** 主流有 sha256,sha384,sha1, 等
+**** tls 中使用了 HMAC 模式，而不是原始的 sha256,sha1 等
+*** key exchange (密钥交换) 算法
+**** 主流有两种：DH 和 ECDH
+**** 现在普遍流行 PFS，把 DH, ECDH 变成 DHE，ECDHE
+
+
+
+** 证书
+*** 简介
+**** RFC 5280
+**** X.509 证书
+*** 扩展名
+**** .DER 扩展名
+**** .PEM 扩展名
+**** .CRT 扩展名
+**** .CER扩展名
+**** .KEY 扩展名
+*** 证书链
+
+
+** SSL/TLS
+*** 3 种功能
+**** 数据保密性
+**** 数据完整性
+**** 身份认证
+*** 核心
+**** 在不安全信道上构建安全信道
+**** 所谓安全包括身份认证、数据完整性、数据加密性
+*** 说明
+**** 非对称算法在 SSL 中的运用就是为了协商一个密钥
+**** 密钥的目的就是为了后续数据能够被加密
+**** 加密密钥有且只有通信双方知道
+*** 历史
+**** 1995: SSL 2.0, 由 Netscape 提出，这个版本由于设计缺陷，并不安全，很快被发现有严重漏洞，已经废弃
+**** 1996: SSL 3.0. 写成 RFC，开始流行。已经不安全，必须禁用
+**** 1999: TLS 1.0. 互联网标准化组织 ISOC 接替 NetScape 公司，发布了 SSL 的升级版 TLS 1.0 版
+**** 2006: TLS 1.1. 作为 RFC 4346 发布。主要 fix 了 CBC 模式相关的如 BEAST 攻击等漏洞
+**** 2008: TLS 1.2. 作为 RFC 5246 发布 。增进安全性。
+**** 2015 之后: TLS 1.3，支持 0-rtt，大幅增进安全性，砍掉了 aead 之外的加密方式
+
+
+
+
+*** 安全通信的几个核心
+**** 数据保密性(message privacy)message privacy)
+**** 数据完整性(message integrity)
+**** 身份认证(mutual authentication)
+**** Data origin authentication
+**** 抗抵赖性
+
+** 密码学
+*** 块加密算法 block cipher: AES, Serpent, 
+*** 流加密算法 stream cipher: RC4，ChaCha20 
+*** Hash 函数 hash funtion:MD5，sha1，sha256，sha512 , ripemd 160，poly1305 
+*** 消息验证码函数 message authentication code: HMAC-sha256，AEAD 
+*** 密钥交换 key exchange: DH，ECDH，RSA，PFS 方式的（DHE，ECDHE）
+*** 公钥加密 public-key encryption: RSA，rabin-williams 
+*** 数字签名算法 signature algorithm:RSA，DSA，ECDSA (secp256r1 , ed25519) 
+*** 密码衍生函数 key derivation function: TLS-12-PRF (SHA-256) , bcrypto，scrypto，pbkdf2 
+*** 随机数生成器 random number generators: /dev/urandom 
 
 
 &#64;endmindmap"/>
 
 </object></p>
+<p>参考: <a class="reference external" href="https://blog.csdn.net/mrpre/category_9270159.html">https://blog.csdn.net/mrpre/category_9270159.html</a></p>
 </div>
 
 
@@ -288,10 +416,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="architecture-c4-model.html" class="btn btn-neutral float-right" title="软件架构——C4模型" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../4cloudnative.html" class="btn btn-neutral float-right" title="云原生相关" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="data-analysis.html" class="btn btn-neutral" title="数据分析" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="compiler.html" class="btn btn-neutral" title="编译原理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

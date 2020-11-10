@@ -8,6 +8,7 @@
    4cloudnatives/12Factor
    4cloudnatives/enterprise_architecture
    4cloudnatives/Severless
+   4cloudnatives/learning
 
 
 
