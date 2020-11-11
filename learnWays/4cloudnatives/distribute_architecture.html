@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>设计思维 &mdash; 学习方法 v1.0 documentation</title>
+  <title>从分布式架构到云原生架构 &mdash; 学习方法 v1.0 documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="心理学" href="../8psychology.html" />
-    <link rel="prev" title="设计相关" href="../7design.html" /> 
+    <link rel="next" title="设计相关" href="../7design.html" />
+    <link rel="prev" title="容器基本概念" href="learnings/lesson2.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -105,30 +105,30 @@
 <li class="toctree-l2"><a class="reference internal" href="../3techs/encrypts.html">加密相关</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../4cloudnative.html">云原生相关</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/12Factor.html">云原生应用的12要素</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/12Factor.html#id2">参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../4cloudnative.html">云原生相关</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="12Factor.html">云原生应用的12要素</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="12Factor.html#id2">参考</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/enterprise_architecture.html">企业架构演化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/enterprise_architecture.html#id2">参考</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enterprise_architecture.html">企业架构演化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="enterprise_architecture.html#id2">参考</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/Severless.html">Severless</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/learning.html">云原生学习</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/learnings/lesson1.html">1. 起点</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/learnings/lesson2.html">容器基本概念</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Severless.html">Severless</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning.html">云原生学习</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="learnings/lesson1.html">1. 起点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="learnings/lesson2.html">容器基本概念</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/distribute_architecture.html">从分布式架构到云原生架构</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/distribute_architecture.html#id2">参考</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">从分布式架构到云原生架构</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">参考</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="../7design.html">设计相关</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">设计思维</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">扩展阅读</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7design.html">设计相关</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7designs/design_thinking.html">设计思维</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../7designs/design_thinking.html#id2">扩展阅读</a></li>
 </ul>
 </li>
 </ul>
@@ -196,15 +196,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../7design.html">设计相关</a> &raquo;</li>
+          <li><a href="../4cloudnative.html">云原生相关</a> &raquo;</li>
         
-      <li>设计思维</li>
+      <li>从分布式架构到云原生架构</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/7designs/design_thinking.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/4cloudnatives/distribute_architecture.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -218,63 +218,210 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>设计思维<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>从分布式架构到云原生架构<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p class="plantuml">
-<object data="../_images/plantuml-caa42d447405b8998a695857392a679c2a1d7804.svg" type="image/svg+xml" style="width:1276px;height:1387px;">
-<img src="../_images/plantuml-caa42d447405b8998a695857392a679c2a1d7804.png" alt="&#64;startmindmap
-* 设计思维
-** 背景
-*** IDEO
-**** IDEO是第一家将设计思维应用于商业问题的解决
-**** IDEO的创始人，David Kelley
-***** 在美国斯坦福大学创建了著名的D.School，斯坦福设计学院
-***** D.School与其他设计学院间特别之处
-****** 它在硅谷，与硅谷有着千丝万缕的联系
-****** 与斯坦福的商学院关系密切，商业模式和设计思维两手抓
-****** 有一套通俗易懂的理论根基作为行为准则，也就是我们常说的Design Thinking
-*** 设计思维分成5大步骤
-**** Empathy同理心思考
-**** Define需求定义
-**** Ideate创意构思
-**** Prototype原型实现
-**** Test实际测试
+<object data="../_images/plantuml-3aabc5cef7287bdefe5f3775471e4f2127e9ec1e.svg" type="image/svg+xml" style="width:938px;height:6784px;">
+<img src="../_images/plantuml-3aabc5cef7287bdefe5f3775471e4f2127e9ec1e.png" alt="&#64;startmindmap
+* 架构新纪元
+** 发展趋势
+*** 趋势
+**** 软件改变世界
+**** 开源改变软件
+**** 云吞噬开源
+*** 互联网
+**** Web 1.0 业务模式
+***** 基于流量点击赢利的单方面信息发布的
+***** 由 All in One 的「单体式」应用架构
+**** Web 2.0 业务模式
+***** 由用户主导而生成内容的
+***** 更加灵活的「分布式应用」架构
+**** 移动互联网时代
+***** 智能手机的出现以及 4G 标准的普及
+***** 互联网应用由 PC 端迅速转向更加自由的移动端
+***** 概念：SOA、DevOps、容器、CI/CD、微服务、Service Mesh
+***** 产品：Docker、Kubernetes、Mesos、Spring Cloud、gRPC、Istio
+***** 「云原生」架构
 
-** 核心
-*** 设计思维并不是一个技能，也不是一个工具
-*** 而是一种思维方式，人们可以结合自身的特点与性质去应用
+** 云原生生态圈
+*** 应用定义与开发层
+**** Application and Development
+**** 数据库
+***** Database
+***** 关系型DB
+****** Oracle
+****** SQL Server
+****** MySQL
+****** PostgreSQL
+****** DB2
+****** MariaDB
+***** NoSQL
+****** MongoDB-面向文档
+****** Couchbase-面向列簇
+****** Redis-面向k/v
+****** Cassandra
+****** HBase
+****** Neo4j-面向图
+***** NewSQL
+****** TiDB-PingCAP
+****** 兼容SQL，更擅长分布式处理
+***** 大数据处理方案
+****** Hadoop
+****** Spark
+****** Druid
 
-** 第1步：移情／同理心
-*** 移情就是对他人的情感或情绪感同身受的能力
+**** 流式处理
+***** Streaming&amp;Message
+***** 消息中间件
+****** CloudEvent
+****** NATS
+****** RabbitMQ
+****** Kafka
+****** OpenMessaging-阿里
+***** 流式实时计算框架
+****** Storm
+****** Flink
 
-** 第2步：确定（问题）
-*** “以人为中心”的方式来定义问题
-*** 不要将问题定义为你自己的愿望或者公司的需要
-**** ❌我们需要将年轻女孩的食品产品市场份额提高5％
-**** ✅十几岁的女孩需要吃营养食物才能茁壮成长，健康成长。
+**** 应用定义&amp;镜像构建
+***** Application Definition &amp; Image Build
+***** 应用定义
+****** Helm
 
-** 第3步：形成概念-Ideate
-*** 重点不在于获得一个完美的想法，而是要想出尽可能多的想法
-*** 创意技巧
-**** 头脑风暴
-**** SCAMPER法
-
-** 第4步：制作原型——Prototype
-*** 目的
-**** 为前三个阶段发现的每个问题找出最佳解决方案。
-
-** 第5步：测试
-*** 使用原型设计阶段确定的最佳解决方案，严格测试整个产品
-*** 寻找实际用户测试你的原型
-**** 如果人们不喜欢它，要敢于接受意见
-**** 关键是要了解哪些是有效的，哪些没有，所以任何反馈都很好
-
-** 第6步：重复以上步骤进行迭代
-*** 设计思维的非线性本质
-*** 设计思维不应被视为固定和不灵活的设计方法
-*** 后期获得的知识可以反馈到早期阶段
+**** 持续集成&amp;持续交付
+***** Continuous Integration &amp; Delivery
+***** 持续交付
+****** Argo
 
 
+*** 编排&amp;治理
+**** Orchestration&amp;Management
+**** 调度与编排
+***** Scheduling&amp;Orchestration
+***** Kubernetes
+***** MeshOS
+***** Swarm
+***** Nomad
 
+**** 分布式协调与服务发现
+***** Coordination &amp; Service Discovery
+***** CoreDNS-CNCF
+***** etcd-CNCF
+***** zookeeper
+***** Eureka-netflix
+
+**** 远程过程调用
+***** Remote Procedure Call
+***** gRPC-CNCF
+***** Thrift-Apache
+***** SofaRPC
+
+**** 服务代理
+***** Service Proxy
+***** Envoy-CNCF
+***** contour-CNCF
+***** BFE-baidu,CNCF
+***** Nginx
+***** Haproxy
+***** traefik
+***** f5-硬件
+
+
+**** API网关
+***** Api Gateway
+***** apisix
+***** kong
+
+
+**** 服务网格
+***** Service Mesh
+***** Istio
+***** Linkerd
+
+
+
+
+*** 运行时
+**** Runtime
+**** 云原生存储
+***** Cloud-Native Storage
+***** ROOK-CNCF
+
+**** 容器运行时
+***** Container Runtime
+***** containerd-CNCF
+***** cri-o
+***** gVisor
+***** kata
+***** SmartOS
+
+**** 云原生网络
+***** Cloud-Native Network
+***** CNI-CNCF
+***** flannel
+***** Calico
+***** weave
+
+*** 供应保障层
+**** Provisioning
+**** 自动化&amp;配置
+***** Automation&amp;Configuration
+***** Ansible
+***** Puppet
+***** Chef
+***** Apollo
+***** KubeEdge
+
+**** 容器仓库
+***** Container Registry
+***** Harbor-CNCF
+***** Dragonfly-CNCF
+
+**** 安全与规格
+***** Security &amp; Compliance
+***** TUF-CNCF
+***** falco-CNCF
+***** Notary-CNCF
+***** OpenPolicyAgent-CNCF
+***** Clair
+***** Twistlock
+
+**** 密钥管理
+***** Key Management
+***** Spiffe-CNCF
+***** Spire-CNCF
+***** Vault
+
+
+*** Platform
+**** AliCloud
+**** TencentCloud
+**** HuaweiCloud
+
+*** 可观察性与分析
+**** Observability and Analysis
+**** 监控-Monitoring
+***** Prometheus-CNCF
+***** Thanos-CNCF
+***** InfluxDB
+***** Grafana
+***** OpenMetrics
+
+**** 日志-Loging
+***** Fluentd-CNCF
+***** Elastic
+***** logstash
+
+**** 跟踪-Tracing
+***** Jaeger-CNCF
+***** OpenTracing-CNCF
+***** SkyWalking
+***** OpenTelemetry
+***** zipkin
+
+**** 混沌工程-Chaos Engineering
+***** ChaosMesh
+***** ChaosToolKit
+***** ChaosKube
+***** ChaosBlade
 
 
 
@@ -284,9 +431,10 @@
 
 </object></p>
 <div class="section" id="id2">
-<h2>扩展阅读<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>参考<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>有道云笔记 tag: 设计思维</p></li>
+<li><p>架构新纪元（一）：从分布式架构到云原生架构: <a class="reference external" href="https://www.infoq.cn/article/fAjL7MEGbjKJtS75MN4E">https://www.infoq.cn/article/fAjL7MEGbjKJtS75MN4E</a></p></li>
+<li><p>架构新纪元（三）：云原生的生态圈: <a class="reference external" href="https://www.infoq.cn/article/RKZMdz4HOtqGUCuWmTUZ">https://www.infoq.cn/article/RKZMdz4HOtqGUCuWmTUZ</a></p></li>
 </ul>
 </div>
 </div>
@@ -299,10 +447,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../8psychology.html" class="btn btn-neutral float-right" title="心理学" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../7design.html" class="btn btn-neutral float-right" title="设计相关" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../7design.html" class="btn btn-neutral" title="设计相关" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="learnings/lesson2.html" class="btn btn-neutral" title="容器基本概念" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
