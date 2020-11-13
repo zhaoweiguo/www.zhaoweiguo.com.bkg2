@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ZTD学习套路 &mdash; 学习方法 v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="技术相关" href="../3tech.html" />
+    <link rel="prev" title="如何让自己的意见更加引起别人重视" href="let-my-opinion-important.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> 学习方法
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../0source.html">源码学习</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../0sources/learn-method.html">如何高效学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0sources/why-read-code.html">为何阅读源码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0sources/how-to-read-code.html">如何阅读源码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0sources/efficient-read-code.html">如何高效阅读源码</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../1job.html">招聘&amp;面试</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../1jobs/how-to-hire-person.html">如何招聘到合适的人</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1jobs/my-how-to-hire-person.html">我的面试总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1jobs/how-to-good-architect.html">如何成为一个好的架构师</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1jobs/team-platform.html">平台型团队</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../2study.html">如何快速学习</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="fast-learn-new-field.html">如何快速熟悉一个领域</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fast-learn-new-field.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="teaching-as-learning.html">以教为学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to-write.html">如何写作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="let-my-opinion-important.html">如何让自己的意见更加引起别人重视</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ZTD学习套路</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../3tech.html">技术相关</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3techs/data-analysis.html">数据分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3techs/architecture-diagram.html">架构图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3techs/architecture-c4-model.html">软件架构——C4模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../3techs/architecture-c4-model.html#id1">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../3techs/compiler.html">编译原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3techs/encrypts.html">加密相关</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../4cloudnative.html">云原生相关</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/12Factor.html">云原生应用的12要素</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/12Factor.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/enterprise_architecture.html">企业架构演化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/enterprise_architecture.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/Severless.html">Severless</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/learning.html">云原生学习</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/learnings/lesson1.html">1. 起点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/learnings/lesson2.html">容器基本概念</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../4cloudnatives/distribute_architecture.html">从分布式架构到云原生架构</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../4cloudnatives/distribute_architecture.html#id2">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../7design.html">设计相关</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7designs/design_thinking.html">设计思维</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../7designs/design_thinking.html#id2">扩展阅读</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../8psychology.html">心理学</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../8psychologys/iceberg_theory.html">冰山理论</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../8psychologys/iceberg_theory.html#id2">扩展阅读</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../9brief.html">简理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../9briefs/demo1.html">实例一</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../9surrounding.html">周边</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../9surroundings/3gpp.html">3gpp</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../9surroundings/3gpp.html#id1">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">学习方法</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../2study.html">如何快速学习</a> &raquo;</li>
+        
+      <li>ZTD学习套路</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/2studys/ZTD-learning-routine.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ztd">
+<h1>ZTD学习套路<a class="headerlink" href="#ztd" title="Permalink to this headline">¶</a></h1>
+<p class="plantuml">
+<object data="../_images/plantuml-53b52d72f4fc5a3bae20e8c2f150688a8e6287d6.svg" type="image/svg+xml" style="width:1240px;height:4031px;">
+<img src="../_images/plantuml-53b52d72f4fc5a3bae20e8c2f150688a8e6287d6.png" alt="&#64;startmindmap
+
+* ZTD学习套路
+** 十个好习惯
+
+*** 一、收集
+**** 好习惯：全面收集
+**** 尽快地把这些信息存入任务清单
+**** 记得要简单
+**** 每天查看你的列表
+
+*** 二、处理
+**** 好习惯：快速地对信息作出决定，从而避免收件箱堆积
+**** 处理方法：
+***** 1.从上往下处理信息，马上做出决定
+***** 2.删除（总是保持这个为优先选择）
+***** 3.委派他人
+***** 4.立刻完成：2分钟内可以搞定的，迅速搞定
+***** 5.等下在做的任务。
+****** 如果这件事需要的时间多过两分钟
+****** 马上把它列入任务清单中，并且等下马上完成它；
+***** 6.制作档案
+****** 你需要额外的参考文件来完成某件事情
+****** 那赶快为它制作一个档案
+
+*** 三、计划
+**** 好习惯：设定每天，每周的最重要的事(MIT)
+**** 这是ZTD中最简单也是最重要的一个习惯
+**** 方法
+***** 每周，列下你需要完成的重大事件（4-6件起步），把他们排进日程表
+***** 每天，列出1-3个最重要的事
+***** 一定要保证完成这些最重要的事,并且在周末时回顾是否已经完成
+**** 步骤
+***** 1.重大事件(确保这些重大事件中包含至少一项与你年度目标有关的任务）
+***** 2.安排日程
+****** 2.1每周放4-6个
+****** 2.2每天放1-2个
+****** 2.3至少分出1-2小时的时间去完成它们
+****** 2.4尽量把时间安排得越早越好
+***** 3.最重要的任务
+***** 4.完成它们
+****** 4.1每天早上做的第一件事就是完成第一件最重要的任务，远离干扰，把所有精力都放在任务上直到完成它为止
+****** 4.2做完之后可以简单的奖赏自己
+***** 5.回顾（回顾你所完成的，顺便表扬自己一下）
+
+*** 四、执行
+**** 好习惯：一心一意，每次只执行一件事
+**** 执行是所有习惯中最最重要的
+**** 步骤
+***** 1.重大事件(Big Rocks)
+****** 做出决定：
+****** 是一次全部完成、
+****** 还是现在抽出一段时间（30分钟）去做它
+***** 2.选择好环境
+***** 3.记录时间
+***** 4.避免干扰:新信息先收集到「收件箱」中,之后处理
+***** 5.不可避免的中断
+****** 5.1把现在的任务进度记录下来
+****** 5.2把所用的资料也都整理放到一旁
+***** 6.享受休息
+***** 7.表扬自己
+
+*** 五、信任的系统
+**** 建立简单的列表，并每日查看
+**** ZTD（简单做）建议你尽可能的维持列表简单化
+**** 不要增加复杂的系统，也不要持续尝试新工具，以免时间上的浪费。
+**** 尽可能的使用简单的清单方式，因为你注重的是如何执行的任务，而非玩弄你的 GTD 系统或者 GTD 工具。
+
+*** 六、管理
+**** 一个存储所有信息的地方
+**** 把所有接收的信息都放入你的收集箱中
+**** 处理你的收集箱， 执行任务， 完成任务
+**** 在这个系统里
+***** 你永远都不应该有疑问自己下一步该做什么
+***** 而且也使你更能专心注重于工作，也能避免拖延
+
+
+*** 七、回顾
+**** 好习惯：每周回顾你的系统和目标
+**** 在每周回顾中，你应该
+***** 对比自己的年度目标
+***** 回顾自己在过去一周取得的进步
+***** 制定下一周的前进计划
+**** 步骤
+***** 1.回顾你的长期目标，中期目标和短期目标（大约5分钟）
+***** 2.整理你的笔记（大概5-10分钟）
+***** 3.回顾上一周的日程表（大约5分钟）
+***** 4.回顾任务清单:处理完成的，保证上面都是尚未完成的、最新的任务
+***** 5.设定下周的短期目标和放置你的“大石块”
+
+*** 八、简化
+**** 好习惯：简化——减少你的任务清单，只留下最必要的
+**** 步骤
+***** 1.清除，再清除
+***** 2.什么才是最重要的
+***** 3.每周回顾,清除那些掉不必要的任务
+***** 4.把小事放在一起做
+
+*** 九、常规
+**** 好习惯：常规 —— 设定每周、每日例程
+**** 步骤
+***** 1.挑出那些规律性、周期性必做的事情，整理成为每周、每日例程
+***** 2.每日清单
+****** 2.1设定一份早上的例程(可以把在家的和在工作的分开)
+****** 2.2一份一天结束之际的例程(工作结束的和一天结束的)
+****** 2.3一份要完成的最重要的任务
+****** 2.4清空你的收件箱
+***** 3.每周清单（每周你会做几次的事情）
+****** 3.1每周回顾
+****** 3.2游玩
+
+*** 十、激情
+**** 好习惯：激情 —— 做你充满梦想的事情
+**** 想想自己到底想做什么:
+***** 1.调查
+***** 2.找出绊脚石
+***** 3.设定计划
+***** 4.开始行动
+***** 5.坚持不懈
+
+
+
+
+&#64;endmindmap"/>
+
+</object></p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../3tech.html" class="btn btn-neutral float-right" title="技术相关" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="let-my-opinion-important.html" class="btn btn-neutral" title="如何让自己的意见更加引起别人重视" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, 赵卫国.
+
+    </p>
+  </div>
+  <div>备案号 <a href="http://www.beian.miit.gov.cn">京ICP备16018553号</a></div><div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a></div>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

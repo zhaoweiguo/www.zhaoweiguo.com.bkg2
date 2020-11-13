@@ -94,6 +94,17 @@
 <li class="toctree-l2"><a class="reference internal" href="../1jobs/team-platform.html">平台型团队</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../2study.html">如何快速学习</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2studys/fast-learn-new-field.html">如何快速熟悉一个领域</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../2studys/fast-learn-new-field.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../2studys/teaching-as-learning.html">以教为学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2studys/how-to-write.html">如何写作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2studys/let-my-opinion-important.html">如何让自己的意见更加引起别人重视</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2studys/ZTD-learning-routine.html">ZTD学习套路</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../3tech.html">技术相关</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3techs/data-analysis.html">数据分析</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3techs/architecture-diagram.html">架构图</a></li>
@@ -220,8 +231,8 @@
   <div class="section" id="id1">
 <h1>从分布式架构到云原生架构<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p class="plantuml">
-<object data="../_images/plantuml-3aabc5cef7287bdefe5f3775471e4f2127e9ec1e.svg" type="image/svg+xml" style="width:938px;height:6784px;">
-<img src="../_images/plantuml-3aabc5cef7287bdefe5f3775471e4f2127e9ec1e.png" alt="&#64;startmindmap
+<object data="../_images/plantuml-60ca40f7848d6b41ff6eddb997928763a14ad0da.svg" type="image/svg+xml" style="width:957px;height:10130px;">
+<img src="../_images/plantuml-60ca40f7848d6b41ff6eddb997928763a14ad0da.png" alt="&#64;startmindmap
 * 架构新纪元
 ** 发展趋势
 *** 趋势
@@ -424,7 +435,126 @@
 ***** ChaosBlade
 
 
+** 观察分布式服务
 
+*** 核心概念
+**** 日志（Logging）
+***** 日志描述的是一些不连续的离散事件
+**** 指标（Metrics）
+***** 指标可以累加，具有原子性
+**** 追踪（Tracing）
+***** 又称分布式追踪
+
+*** 组合
+**** 追踪+日志
+***** 分布式追踪系统的早期形态
+***** 在单次请求范围内处理信息
+**** 日志+指标
+***** 日志分析系统的常规架构
+***** 解析现有日志获取相关指标
+**** 追踪+指标
+***** 指明基于追踪系统的数据分析指标
+***** 应用间的关系以及数据流向
+
+*** 分布式追踪
+**** 来源
+***** Google于2010年发布的论文
+***** Dapper, a Large-Scale Distributed Systems Tracing Infrastructure
+**** 核心实现方法
+***** 请求上下文中增加span_id和parent_id
+***** 用于记录请求的上下文关系
+
+*** 常见的开源解决方案
+**** Apache Zipkin
+**** OpenTracing
+***** Jaeger
+***** OpenCensus
+***** OpenTelemetry
+
+
+** 云原生基石-Kubernetes
+*** 核心组件
+**** etcd
+***** 协同存储、负责保存整个集群的状态
+**** api-server
+***** 提供资源操作的唯一入口
+***** 提供认证、授权、访问控制、API注册和发现等机制
+**** controller manager
+***** 负责维护集群状态
+***** 执行故障检测、自动扩展、滚动更新等操作
+**** Scheduler
+***** 负责资源调度
+***** 按调度策略将Pod调度到相应的机器
+**** Kubelet
+***** 负责维护容器的生命周期
+***** 负责对容器存储接口(CSI)进行管理
+***** 负责对容器网络接口(CNI)进行管理
+**** 容器运行时(Docker)
+***** 镜像管理
+***** Pod和容器的运行
+**** Proxy
+***** 负责提供集群内部的服务发现和负载均衡
+
+*** 插件
+**** CoreDNS
+***** 为集群提供DNS服务
+**** Ingress Controller
+***** 为服务提供外网入口
+**** Prometheus
+***** 负责资源监控
+**** Dashboard
+***** 提供GUI
+**** Federation
+***** 提供跨可用区集群
+
+*** 分层架构
+**** 核心层
+***** 对外提供api构建高层应用
+***** 对内插件式应用执行环境
+**** 应用层
+***** 负责部署和路由
+***** 可部署的应用包括
+****** 无状态应用
+****** 有状态应用
+****** 批处理任务
+****** 集群应用等
+***** 路由类型有
+****** 服务发现
+****** DNS解析
+**** 管理层
+***** 负责自动化
+****** 自动扩展
+****** 动态部署
+***** 策略
+****** RBAC
+****** ResourceQuota
+****** NetworkPolicy
+**** 接口层
+***** kubectl命令行工具
+***** 客户端SDK
+**** 云原生生态系统
+***** 接口层之上
+***** 负责容器集群管理调度
+**** Kubernetes内部
+***** CRI
+***** CSI
+***** CNI
+***** 镜像仓库
+***** 云供应商
+***** 身份供应商
+
+*** 设计哲学
+**** 设计模式
+***** 命令式-&gt;声明式
+
+
+** ServiceMesh
+*** 前期
+**** Sidecar
+*** ServiceMesh期
+**** 不再将代理视为单独的组件
+**** 强调这些代理连接而成的网络
+**** 强调服务间通信网络的整体
 
 
 &#64;endmindmap"/>
@@ -435,6 +565,8 @@
 <ul class="simple">
 <li><p>架构新纪元（一）：从分布式架构到云原生架构: <a class="reference external" href="https://www.infoq.cn/article/fAjL7MEGbjKJtS75MN4E">https://www.infoq.cn/article/fAjL7MEGbjKJtS75MN4E</a></p></li>
 <li><p>架构新纪元（三）：云原生的生态圈: <a class="reference external" href="https://www.infoq.cn/article/RKZMdz4HOtqGUCuWmTUZ">https://www.infoq.cn/article/RKZMdz4HOtqGUCuWmTUZ</a></p></li>
+<li><p>架构新纪元（四）：观察分布式服务: <a class="reference external" href="https://www.infoq.cn/article/zp1SuoGdo09du04eliCU">https://www.infoq.cn/article/zp1SuoGdo09du04eliCU</a></p></li>
+<li><p>架构新纪元（五）：云原生生态的基石 Kubernetes: <a class="reference external" href="https://www.infoq.cn/article/xT2yhmyewicXrecS8mQI/">https://www.infoq.cn/article/xT2yhmyewicXrecS8mQI/</a></p></li>
 </ul>
 </div>
 </div>
