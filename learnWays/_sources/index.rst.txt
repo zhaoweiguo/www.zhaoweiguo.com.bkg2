@@ -12,6 +12,7 @@ Welcome to Architecture's documentation!
 
    0source
    1job
+   2study
    3tech
    4cloudnative
    7design

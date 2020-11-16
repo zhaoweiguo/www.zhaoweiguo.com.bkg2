@@ -1,0 +1,14 @@
+从分布式架构到云原生架构
+#############################
+
+
+.. uml:: ./distribute_architecture.puml
+
+
+参考
+====
+
+* 架构新纪元（一）：从分布式架构到云原生架构: https://www.infoq.cn/article/fAjL7MEGbjKJtS75MN4E
+* 架构新纪元（三）：云原生的生态圈: https://www.infoq.cn/article/RKZMdz4HOtqGUCuWmTUZ
+* 架构新纪元（四）：观察分布式服务: https://www.infoq.cn/article/zp1SuoGdo09du04eliCU
+* 架构新纪元（五）：云原生生态的基石 Kubernetes: https://www.infoq.cn/article/xT2yhmyewicXrecS8mQI/

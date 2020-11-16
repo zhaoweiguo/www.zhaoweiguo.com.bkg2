@@ -9,6 +9,7 @@
    3techs/architecture-diagram
    3techs/architecture-c4-model
    3techs/compiler
+   3techs/encrypts
 
 
 

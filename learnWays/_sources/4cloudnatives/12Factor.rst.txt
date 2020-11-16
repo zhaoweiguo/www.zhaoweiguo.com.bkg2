@@ -10,8 +10,6 @@
 参考
 ====
 
-https://cloud.tencent.com/developer/article/1034398
-
-
-
-
+* https://cloud.tencent.com/developer/article/1034398
+* https://www.infoq.cn/article/xpFP8uclTKJQhhFqDyjZ
+* https://www.12factor.net/
